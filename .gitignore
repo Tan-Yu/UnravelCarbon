@@ -5,3 +5,4 @@ __pycache__/
 peer1_emissions_report.pdf
 projects/*/chats/
 projects/*/reports/
+.venv/
