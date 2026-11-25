@@ -12,7 +12,7 @@ from rag import GHGIndex
 
 ROOT = Path(__file__).resolve().parent
 MODEL = "gemini-2.5-flash"
-PROMPT_VERSION = "agent-v2"
+PROMPT_VERSION = "agent-v3"
 MAX_STEPS = 6
 
 SYSTEM = """You are an emissions analysis assistant for sustainability professionals. You have two kinds of tools:
@@ -25,6 +25,10 @@ Rules:
 - Label each assessment point "Protocol requirement" (the excerpt says "shall"; cite the page) or "Best practice" (a recommendation, "should", or your judgment). Suggest, do not rewrite or change the data.
 - If the excerpts do not answer, say "Cannot verify from the provided documents." and what is missing. The 2004 edition has NO Scope 2 Guidance (2015) and NO Scope 3 Standard (2011): say so when relevant instead of guessing.
 - For peer comparison call compare_with_peers. State the boundary and period differences from its caveats before drawing any conclusion; never rank the company as better or worse without them. Peers: Docusign FY25 and Shopify 2024 only.
+- Split a compound question into its sub-questions and search for each one separately (a single search rarely covers both a classification and a calculation method).
+- For validity or compliance questions, open with a one-line verdict (valid / not valid / cannot be determined) and the main reason, then the supporting points.
+- Use "shall", "required" or "mandatory" only when the cited page says so; if it only recommends, say "recommended".
+- CSV tool results may include data_caveats (data-quality findings for the data you are reporting on). When a caveat affects a claim you make, state it briefly next to that claim; do not present affected groupings as reliable.
 - Be concise (under 200 words unless a report is requested)."""
 
 
@@ -107,6 +111,14 @@ TOOLS = {**et.TOOLS, "compare_with_peers": peers.compare_with_peers}
 PRICE_IN, PRICE_OUT = 0.30, 2.50   # USD per 1M tokens, gemini-2.5-flash paid-tier list price (free tier costs 0)
 
 
+OBLIGATION = re.compile(r"\b(shall|must|required|requires|requirement|mandatory)\b", re.I)
+SCOPES_OF = {"scope1_breakdown": [1], "scope2_breakdown": [2], "scope3_top": [3], "scope3_category_detail": [3],
+             "supplier_priorities": [3], "totals": None}
+VERIFY = """For each numbered claim, decide if the cited page text states or clearly supports it (including the strength: a claim that something
+is required/shall is unsupported if the page only says should/recommended or says nothing). Return ONLY JSON: {{"unsupported": [claim numbers]}}.
+{body}"""
+
+
 def _key():
     for l in open(ROOT / ".env"):
         if "=" in l and not l.strip().startswith("#") and l.split("=")[0].strip().upper().startswith("GEMINI"):
@@ -135,7 +147,30 @@ class Agent:
         res = json.loads(json.dumps(TOOLS[name](**args), default=str))
         self.dcount += 1; sid = f"D{self.dcount}"
         sources[sid] = dict(kind="data", label=describe(name, args), detail=res, tool=name, args=args)
-        return {"source_id": sid, **res}, None
+        extra = {}
+        if name in SCOPES_OF or name == "recompute":   # attach the data-quality findings that affect what was just reported
+            scopes = [args["scope"]] if name == "recompute" else SCOPES_OF[name]
+            fs = et.quality_report(scopes[0] if scopes else None)["findings"]
+            extra["data_caveats"] = [dict(id=f["id"], severity=f["severity"], title=f["title"])
+                                     for f in fs if f["status"] in ("gap", "verify", "unknown")]
+        return {"source_id": sid, **res, **extra}, None
+
+    def _verify(self, text, sources):
+        """Claim check: obligation claims ('shall', 'required') are checked against the page they cite."""
+        claims = []
+        for sent in re.split(r"(?<=[.!?])\s+|\n+", text):
+            pgs = [f"p.{n}" for n in cited_pages(sent) if f"p.{n}" in sources]
+            if pgs and OBLIGATION.search(sent): claims.append((sent.strip(), pgs))
+        claims = claims[:8]
+        if not claims: return [], 0, 0
+        body = "\n\n".join(f"Claim {i+1}: {c}\nCited page text:\n" + "\n".join(f"[{p}] {re.sub(chr(10)+'+', ' ', sources[p]['detail'])[:3500]}" for p in pg)
+                            for i, (c, pg) in enumerate(claims))
+        r = self.client.models.generate_content(model=MODEL, contents=VERIFY.format(body=body), config=types.GenerateContentConfig(
+            temperature=0, response_mime_type="application/json", thinking_config=types.ThinkingConfig(thinking_budget=0)))
+        try: bad = [claims[i - 1][0] for i in json.loads(r.text)["unsupported"] if 1 <= i <= len(claims)]
+        except Exception: bad = []
+        u = r.usage_metadata
+        return bad, u.prompt_token_count or 0, u.candidates_token_count or 0
 
     def ask(self, question, history=None):
         contents = list(history or []) + [types.Content(role="user", parts=[types.Part(text=question)])]
@@ -143,7 +178,7 @@ class Agent:
                                           tools=[types.Tool(function_declarations=DECLS)],
                                           automatic_function_calling=types.AutomaticFunctionCallingConfig(disable=True),
                                           thinking_config=types.ThinkingConfig(thinking_budget=0))
-        trace, tin, tout, t0 = [], 0, 0, time.time(); retrieved, guarded, sources = set(), False, {}
+        trace, tin, tout, t0 = [], 0, 0, time.time(); retrieved, guarded, sources, revised, claim_check = set(), False, {}, False, None
         for step in range(MAX_STEPS):
             for a in range(5):
                 try:
@@ -164,7 +199,17 @@ class Agent:
                         f"Your answer cites pages {bad} that no search returned. Call search_ghg_protocol (use each finding's "
                         "rule_query) to find the rule, then answer again citing only retrieved pages; drop any rule you cannot cite."))]))
                     trace.append(dict(tool="citation_guard", args={"uncited_pages": bad}, pages=None)); continue
-                return dict(uncited_pages=bad, answer=ans, answer_raw=r.text or "", sources=cited, trace=trace, tokens_in=tin, tokens_out=tout, steps=step + 1,
+                if not bad or guarded:
+                    unsup, vi, vo = self._verify(r.text or "", sources); tin += vi; tout += vo
+                    claim_check = dict(unsupported=unsup, revised=revised)
+                    if unsup and not revised:
+                        revised = True
+                        contents.append(r.candidates[0].content)
+                        contents.append(types.Content(role="user", parts=[types.Part(text=(
+                            "These claims are not supported by the page text you cited: " + " | ".join(unsup) +
+                            ". Rewrite the whole answer: remove or soften those claims (say 'recommended' when the page only recommends), keep the rest."))]))
+                        trace.append(dict(tool="claim_check", args={"unsupported": unsup}, pages=None)); continue
+                return dict(uncited_pages=bad, claim_check=claim_check, answer=ans, answer_raw=r.text or "", sources=cited, trace=trace, tokens_in=tin, tokens_out=tout, steps=step + 1,
                             latency=round(time.time() - t0, 1), cost_usd=round(tin * PRICE_IN / 1e6 + tout * PRICE_OUT / 1e6, 5),
                             history=contents + [r.candidates[0].content])
             contents.append(r.candidates[0].content)

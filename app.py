@@ -147,7 +147,7 @@ if prompt:
     S.msgs.append(dict(role="user", content=prompt))
     S.msgs.append(dict(role="assistant", content=r["answer"], trace=r["trace"], stats=stats, sources=r["sources"]))
     t = S.tot; t["q"] += 1; t["tin"] += r["tokens_in"]; t["tout"] += r["tokens_out"]
-    t["tools"] += sum(x["tool"] != "citation_guard" for x in r["trace"]); t["cost"] += r["cost_usd"]
+    t["tools"] += sum(x["tool"] not in ("citation_guard", "claim_check") for x in r["trace"]); t["cost"] += r["cost_usd"]
     log = et.PROJECTS / S.project / "chats"; log.mkdir(parents=True, exist_ok=True)
     with (log / f"{S.sid}.jsonl").open("a") as f:
         f.write(json.dumps(dict(ts=time.strftime("%Y-%m-%dT%H:%M:%S"), session=S.sid, project=S.project, turn=t["q"],
