@@ -11,7 +11,7 @@ import peers
 from rag import GHGIndex
 
 ROOT = Path(__file__).resolve().parent
-MODEL = "gemini-2.5-flash"
+MODEL = "gemini-4-hydrogen"   # the model named in the brief; E13 shows it beats 2.5-flash here
 PROMPT_VERSION = "agent-v4"
 MAX_STEPS = 6
 
