@@ -4,3 +4,4 @@ __pycache__/
 .ipynb_checkpoints/
 peer1_emissions_report.pdf
 projects/*/chats/
+projects/*/reports/

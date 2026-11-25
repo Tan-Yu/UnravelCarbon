@@ -3,6 +3,7 @@ One shared GHG Protocol knowledge base; one folder per company in projects/<name
 import io, json, re, time, uuid
 import pandas as pd
 import streamlit as st
+from report import build_report
 import emissions_tools as et
 from agent import Agent, MODEL, PROMPT_VERSION
 
@@ -122,7 +123,17 @@ cols = st.columns(len(QUICK) + 1)
 clicked = None
 for c, q in zip(cols, QUICK):
     if c.button(q, use_container_width=True): clicked = q
-if cols[-1].button("Generate summary report", type="primary", use_container_width=True): clicked = REPORT
+if cols[-1].button("Generate summary report", type="primary", use_container_width=True):
+    if not avail: st.error("Upload data for this project first.")
+    else:
+        with st.spinner("Building report..."):
+            f, page, st_ = build_report(ag, S.project)
+        S.report = dict(page=page, name=f.name, project=S.project, stats=st_)
+if S.get("report") and S.report["project"] == S.project:
+    r_ = S.report
+    st.success(f"Report saved to projects/{S.project}/reports/{r_['name']} ({r_['stats']['actions']} suggested actions)")
+    st.download_button("Download report (HTML)", r_["page"], file_name=r_["name"], mime="text/html")
+    st.iframe(r_["page"], height=900)   # all LLM text in the page is html-escaped by report.render
 
 for i, m in enumerate(S.msgs):
     with st.chat_message(m["role"]):
