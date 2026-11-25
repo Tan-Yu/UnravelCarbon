@@ -12,11 +12,12 @@ QS = [
  ("Bonus 2", "Which suppliers should I prioritise to engage for emissions reduction efforts?"),
  ("Bonus 3", "Generate a summary report of our total emissions by scope with key insights"),
 ]
-ag = Agent(); out = ["# Test question answers (model %s, prompt %s)\n" % (agent.MODEL, agent.PROMPT_VERSION)]
-for tag, q in QS:
-    r = ag.ask(q)
-    print(f"\n##### {tag}: {q}\n{r['answer']}\n-- tools {[t['tool'] for t in r['trace']]} uncited={r['uncited_pages']} in={r['tokens_in']} out={r['tokens_out']} ${r['cost_usd']}")
-    out.append(f"## {tag}: {q}\n\n{r['answer']}\n\n**Sources**\n" + "\n".join(f"- [{s['n']}] {s['label']}" for s in r["sources"])
-               + f"\n\n_tools: {[t['tool'] for t in r['trace']]}; {r['tokens_in']} in / {r['tokens_out']} out tokens; ${r['cost_usd']}_\n")
-    time.sleep(7)
-open("build/cache/test_questions.md", "w").write("\n".join(out))
+if __name__ == "__main__":
+    ag = Agent(); out = ["# Test question answers (model %s, prompt %s)\n" % (agent.MODEL, agent.PROMPT_VERSION)]
+    for tag, q in QS:
+        r = ag.ask(q)
+        print(f"\n##### {tag}: {q}\n{r['answer']}\n-- tools {[t['tool'] for t in r['trace']]} uncited={r['uncited_pages']} in={r['tokens_in']} out={r['tokens_out']} ${r['cost_usd']}")
+        out.append(f"## {tag}: {q}\n\n{r['answer']}\n\n**Sources**\n" + "\n".join(f"- [{s['n']}] {s['label']}" for s in r["sources"])
+                   + f"\n\n_tools: {[t['tool'] for t in r['trace']]}; {r['tokens_in']} in / {r['tokens_out']} out tokens; ${r['cost_usd']}_\n")
+        time.sleep(7)
+    open("build/cache/test_questions.md", "w").write("\n".join(out))
