@@ -15,19 +15,52 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
-DATA_DIR = Path(__file__).resolve().parent
+PROJECTS = Path(__file__).resolve().parent / "projects"
+DATA_DIR = PROJECTS / "demo-company"     # active project folder; change with set_project()
 FILES = {1: "scope1.csv", 2: "scope2.csv", 3: "scope3.csv"}
 ROUND_TOL = 0.0051          # reported values are rounded to 2 decimals (tonnes)
 SCALES = [1e-6, 1e-3, 1.0, 1e3]
-_cache: dict[int, pd.DataFrame] = {}
+_cache: dict = {}
+REQUIRED = {
+    1: ["Facility", "Activity_Type", "Fuel_Type", "Consumption_Amount", "Consumption_Unit", "Emission_Factor", "CO2e_Tonnes", "Date"],
+    2: ["Facility", "Energy_Type", "Consumption_Amount", "Consumption_Unit", "Grid_Region", "Emission_Factor", "CO2e_Tonnes", "Date"],
+    3: ["Category", "Activity_Description", "Spend_Amount", "Spend_Currency", "Emission_Factor", "CO2e_Tonnes", "Date", "Supplier", "Data_Quality"],
+}
+
+
+def set_project(name: str) -> Path:
+    """Switch the active company. Data is re-read from disk whenever a file changes, so no restart is needed."""
+    global DATA_DIR
+    DATA_DIR = PROJECTS / name
+    return DATA_DIR
+
+
+def list_projects() -> list[str]:
+    return sorted(p.name for p in PROJECTS.iterdir() if p.is_dir()) if PROJECTS.exists() else []
+
+
+def available() -> list[int]:
+    return [s for s in (1, 2, 3) if (DATA_DIR / FILES[s]).exists()]
+
+
+def validate_csv(scope: int, df: pd.DataFrame) -> list[str]:
+    """Problems that stop the tools working (missing columns, unparseable dates, non-numeric values)."""
+    errs = [f"missing column: {c}" for c in REQUIRED[scope] if c not in df.columns]
+    if errs: return errs
+    if pd.to_datetime(df["Date"], errors="coerce").isna().any(): errs.append("some Date values cannot be parsed")
+    for c in (_qty_col(scope), "Emission_Factor", "CO2e_Tonnes"):
+        if pd.to_numeric(df[c], errors="coerce").isna().any(): errs.append(f"non-numeric values in {c}")
+    return errs
 
 
 def load(scope: int) -> pd.DataFrame:
-    if scope not in _cache:
-        df = pd.read_csv(DATA_DIR / FILES[scope])
+    f = DATA_DIR / FILES[scope]
+    key = (str(f), f.stat().st_mtime_ns)
+    if _cache.get(scope, (None,))[0] != key:
+        df = pd.read_csv(f)
         df["Date"] = pd.to_datetime(df["Date"], errors="coerce")
-        _cache[scope] = df
-    return _cache[scope].copy()
+        _cache[scope] = (key, df)
+    return _cache[scope][1].copy()
 
 
 def _qty_col(scope: int) -> str:
@@ -70,16 +103,17 @@ def recompute(scope: int) -> dict:
 # --------------------------------------------------------------------------- totals and breakdowns
 def totals() -> dict:
     out = {}
-    for s in (1, 2, 3):
+    for s in available():
         df = load(s)
         out[f"scope{s}"] = dict(tonnes=_f(df["CO2e_Tonnes"].sum()), rows=len(df),
                                 period=[str(df["Date"].min().date()), str(df["Date"].max().date())],
                                 months=int(df["Date"].dt.to_period("M").nunique()))
     grand = sum(out[k]["tonnes"] for k in out)
-    for k in out: out[k]["share_pct"] = _f(100 * out[k]["tonnes"] / grand, 2)
+    for k in list(out): out[k]["share_pct"] = _f(100 * out[k]["tonnes"] / grand, 2)
     out["total_tonnes"] = _f(grand)
-    out["caveat"] = ("Scope 1 and 2 cover fewer months than Scope 3; shares are not like-for-like."
-                     if len({out[k]["months"] for k in ('scope1', 'scope2', 'scope3')}) > 1 else None)
+    out["caveat"] = ("Scopes cover different numbers of months; shares are not like-for-like."
+                     if len({v["months"] for k, v in out.items() if k.startswith("scope")}) > 1 else None)
+    out["missing_scopes"] = [s for s in (1, 2, 3) if s not in available()]
     return out
 
 
@@ -233,14 +267,14 @@ def _check_scope3():
 def quality_report(scope: int | None = None) -> dict:
     """Run all checks. scope=None runs everything plus the cross-scope check."""
     fn = {1: _check_scope1, 2: _check_scope2, 3: _check_scope3}
-    scopes = [scope] if scope else [1, 2, 3]
+    scopes = [scope] if scope else available()
     findings = []
     for s in scopes: findings += [dict(f, scope=s) for f in fn[s]()]
-    if scope is None:
+    if scope is None and len(scopes) > 1:
         t = totals()
         if t["caveat"]:
             findings.append(dict(_finding("x.period_mismatch", "gap", "high", "Scopes cover different periods",
-                                          {k: t[k]["period"] for k in ("scope1", "scope2", "scope3")},
+                                          {k: t[k]["period"] for k in t if k.startswith("scope")},
                                           "What must the reporting period cover in a public GHG report?", "protocol"), scope=0))
     order = {"gap": 0, "verify": 1, "unknown": 2, "info": 3, "pass": 4}
     findings.sort(key=lambda f: (order[f["status"]], {"high": 0, "medium": 1, "low": 2}[f["severity"]]))
@@ -251,7 +285,7 @@ def quality_report(scope: int | None = None) -> dict:
 def load_status() -> dict:
     """One line per CSV for the UI sidebar: rows, flags (gap + verify), arithmetic ok."""
     out = {}
-    for s in (1, 2, 3):
+    for s in available():
         rep = quality_report(s)
         out[f"scope{s}.csv"] = dict(rows=len(load(s)), flags=sum(1 for f in rep["findings"] if f["status"] in ("gap", "verify")),
                                     arithmetic_ok=next(f["status"] == "pass" for f in rep["findings"] if f["id"].endswith(".arithmetic")))

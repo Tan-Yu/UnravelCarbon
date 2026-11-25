@@ -11,7 +11,7 @@ from rag import GHGIndex
 
 ROOT = Path(__file__).resolve().parent
 MODEL = "gemini-2.5-flash"
-PROMPT_VERSION = "agent-v1"
+PROMPT_VERSION = "agent-v2"
 MAX_STEPS = 6
 
 SYSTEM = """You are an emissions analysis assistant for sustainability professionals. You have two kinds of tools:
@@ -20,7 +20,7 @@ SYSTEM = """You are an emissions analysis assistant for sustainability professio
 Rules:
 - Never state a Protocol rule from memory: call search_ghg_protocol first, even for questions that seem to have no answer. A citation is only valid for a page that appeared in a search result.
 - Data questions: call the CSV tools. Methodology / rules questions: call search_ghg_protocol. Questions that need both (e.g. "is our steam reporting compliant?", quality assessment): call both; use each finding's rule_query to retrieve the rule.
-- Cite every Protocol claim like [p.27]. Never invent pages, quotes or numbers. Cite data as (source: tool name).
+- Cite every Protocol claim like [p.27]. Cite every number about the company's data with the source_id from the tool result, like [D1], placed right after the claim. Never invent pages, quotes, numbers or source ids. Do not write '(source: ...)'.
 - Label each assessment point "Protocol requirement" (the excerpt says "shall"; cite the page) or "Best practice" (a recommendation, "should", or your judgment). Suggest, do not rewrite or change the data.
 - If the excerpts do not answer, say "Cannot verify from the provided documents." and what is missing. The 2004 edition has NO Scope 2 Guidance (2015) and NO Scope 3 Standard (2011): say so when relevant instead of guessing.
 - Peer-company reports are not available yet: say so if asked to compare with peers.
@@ -32,6 +32,46 @@ def cited_pages(ans):
     for m in re.finditer(r"\[(?:pp?\.?)\s*([\d,\s\-–]+)\]", ans):
         out |= {int(x) for x in re.findall(r"\d+", m.group(1))}
     return out
+
+
+FILE_OF = {"scope1_breakdown": "scope1.csv", "scope2_breakdown": "scope2.csv", "scope3_top": "scope3.csv",
+           "scope3_category_detail": "scope3.csv", "supplier_priorities": "scope3.csv"}
+
+
+def describe(name, a):
+    """Human-readable label for a data source chip."""
+    f = FILE_OF.get(name, "")
+    return {
+        "totals": "Total emissions per scope (scope1/2/3.csv)",
+        "scope1_breakdown": f"{f}: Scope 1 emissions grouped by {a.get('by', 'Fuel_Type')}",
+        "scope2_breakdown": f"{f}: Scope 2 emissions grouped by {a.get('by', 'Energy_Type')}",
+        "scope3_top": f"{f}: top {a.get('n', 5)} Scope 3 groups by {a.get('by', 'Category')}",
+        "scope3_category_detail": f"{f}: what drives Scope 3 {a.get('category', '')}",
+        "supplier_priorities": f"{f}: suppliers ranked by emissions and data quality",
+        "recompute": f"scope{a.get('scope')}.csv: CO2e recalculated as quantity x factor for every row",
+        "quality_report": "Data-quality checks" + (f" on scope{a['scope']}.csv" if a.get("scope") else " on all scopes"),
+    }.get(name, name)
+
+
+_TOKEN = re.compile(r"\[\s*((?:D\d+|pp?\.?\s*\d+)(?:\s*[,;]\s*(?:D\d+|pp?\.?\s*\d+))*)\s*\]")
+
+
+def number_sources(answer, sources):
+    """Replace [D3] / [p.27] markers with [1], [2]... and return the cited sources in order."""
+    order, out = [], []
+    def key(t):
+        t = t.strip()
+        return t if t.startswith("D") else "p." + re.sub(r"\D", "", t)
+    def sub(m):
+        nums = []
+        for t in re.split(r"[,;]", m.group(1)):
+            k = key(t)
+            if k not in sources: continue
+            if k not in order: order.append(k)
+            nums.append(order.index(k) + 1)
+        return "".join(f"[{n}]" for n in sorted(set(nums)))
+    out = _TOKEN.sub(sub, answer)
+    return out, [dict(n=i + 1, id=k, **sources[k]) for i, k in enumerate(order)]
 
 
 def _decl(name, desc, props=None, required=()):
@@ -75,13 +115,23 @@ class Agent:
         self.client = genai.Client(api_key=_key())
         self.index = GHGIndex()
         self.expand = expand       # 0 = page, 1 = page+-1
+        self.dcount = 0            # data source ids stay unique across turns (history keeps old ids)
 
-    def _run_tool(self, name, args):
+    def set_project(self, name):
+        et.set_project(name); self.project = name
+
+    def _run_tool(self, name, args, sources):
         args = {k: (int(v) if k in ("scope", "n") else v) for k, v in dict(args).items()}
         if name == "search_ghg_protocol":
             r = self.index.search(args["query"], expand=self.expand)
+            for p in r["returned_pages"]:
+                sources[f"p.{p}"] = dict(kind="page", label=f"GHG Protocol Corporate Standard (2004), PDF page {p}",
+                                         detail=self.index.pages[p])
             return {"returned_pages": r["returned_pages"], "excerpts": r["text"]}, r
-        return json.loads(json.dumps(et.TOOLS[name](**args), default=str)), None
+        res = json.loads(json.dumps(et.TOOLS[name](**args), default=str))
+        self.dcount += 1; sid = f"D{self.dcount}"
+        sources[sid] = dict(kind="data", label=describe(name, args), detail=res, tool=name, args=args)
+        return {"source_id": sid, **res}, None
 
     def ask(self, question, history=None):
         contents = list(history or []) + [types.Content(role="user", parts=[types.Part(text=question)])]
@@ -89,7 +139,7 @@ class Agent:
                                           tools=[types.Tool(function_declarations=DECLS)],
                                           automatic_function_calling=types.AutomaticFunctionCallingConfig(disable=True),
                                           thinking_config=types.ThinkingConfig(thinking_budget=0))
-        trace, tin, tout, t0 = [], 0, 0, time.time(); retrieved, guarded = set(), False
+        trace, tin, tout, t0 = [], 0, 0, time.time(); retrieved, guarded, sources = set(), False, {}
         for step in range(MAX_STEPS):
             for a in range(5):
                 try:
@@ -102,6 +152,7 @@ class Agent:
             calls = r.function_calls or []
             if not calls:
                 bad = sorted(cited_pages(r.text or "") - retrieved)
+                ans, cited = number_sources(r.text or "", sources)
                 if bad and not guarded:
                     guarded = True   # citation guard: one retry when the answer cites pages never retrieved
                     contents.append(r.candidates[0].content)
@@ -109,20 +160,20 @@ class Agent:
                         f"Your answer cites pages {bad} that no search returned. Call search_ghg_protocol (use each finding's "
                         "rule_query) to find the rule, then answer again citing only retrieved pages; drop any rule you cannot cite."))]))
                     trace.append(dict(tool="citation_guard", args={"uncited_pages": bad}, pages=None)); continue
-                return dict(uncited_pages=bad, answer=r.text or "", trace=trace, tokens_in=tin, tokens_out=tout, steps=step + 1,
+                return dict(uncited_pages=bad, answer=ans, answer_raw=r.text or "", sources=cited, trace=trace, tokens_in=tin, tokens_out=tout, steps=step + 1,
                             latency=round(time.time() - t0, 1), cost_usd=round(tin * PRICE_IN / 1e6 + tout * PRICE_OUT / 1e6, 5),
                             history=contents + [r.candidates[0].content])
             contents.append(r.candidates[0].content)
             parts = []
             for c in calls:
-                try: out, raw = self._run_tool(c.name, c.args or {})
+                try: out, raw = self._run_tool(c.name, c.args or {}, sources)
                 except Exception as e: out, raw = {"error": str(e)}, None
                 if raw: retrieved |= set(raw["returned_pages"])
                 trace.append(dict(tool=c.name, args=dict(c.args or {}), pages=(raw or {}).get("returned_pages")))
                 parts.append(types.Part.from_function_response(name=c.name, response={"result": out}))
             contents.append(types.Content(role="user", parts=parts))
         return dict(answer="(stopped: too many tool steps)", trace=trace, tokens_in=tin, tokens_out=tout,
-                    steps=MAX_STEPS, latency=round(time.time() - t0, 1), cost_usd=0, history=contents)
+                    steps=MAX_STEPS, sources=[], uncited_pages=[], latency=round(time.time() - t0, 1), cost_usd=0, history=contents)
 
 
 DEMO = [
