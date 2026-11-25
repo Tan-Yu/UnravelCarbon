@@ -47,5 +47,15 @@ class GHGIndex:
             for p in self.chunks[ci]["pages"]:
                 if p not in hits: hits.append(p)
         ret = sorted({p + dl for p in hits for dl in range(-expand, expand + 1) if 1 <= p + dl <= len(self.pages)})
+        return dict(hit_pages=hits, returned_pages=ret, **self.render(ret))
+
+    def render(self, ret):
         text = "\n\n".join(f"[p.{p}]\n{re.sub(chr(10) + '{3,}', chr(10) * 2, self.pages[p]).strip()}" for p in ret)
-        return dict(hit_pages=hits, returned_pages=ret, text=text, words=len(text.split()))
+        return dict(text=text, words=len(text.split()))
+
+    def search_many(self, queries, expand: int = 1) -> dict:
+        """One retrieval per sub-question, merged (pages de-duplicated, page markers kept)."""
+        rs = [self.search(q, expand) for q in queries]
+        hits = list(dict.fromkeys(p for r in rs for p in r["hit_pages"]))
+        ret = sorted({p for r in rs for p in r["returned_pages"]})
+        return dict(hit_pages=hits, returned_pages=ret, per_query={q: r["returned_pages"] for q, r in zip(queries, rs)}, **self.render(ret))

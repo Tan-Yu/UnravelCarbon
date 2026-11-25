@@ -12,7 +12,7 @@ from rag import GHGIndex
 
 ROOT = Path(__file__).resolve().parent
 MODEL = "gemini-2.5-flash"
-PROMPT_VERSION = "agent-v3"
+PROMPT_VERSION = "agent-v4"
 MAX_STEPS = 6
 
 SYSTEM = """You are an emissions analysis assistant for sustainability professionals. You have two kinds of tools:
@@ -25,10 +25,10 @@ Rules:
 - Label each assessment point "Protocol requirement" (the excerpt says "shall"; cite the page) or "Best practice" (a recommendation, "should", or your judgment). Suggest, do not rewrite or change the data.
 - If the excerpts do not answer, say "Cannot verify from the provided documents." and what is missing. The 2004 edition has NO Scope 2 Guidance (2015) and NO Scope 3 Standard (2011): say so when relevant instead of guessing.
 - For peer comparison call compare_with_peers. State the boundary and period differences from its caveats before drawing any conclusion; never rank the company as better or worse without them. Peers: Docusign FY25 and Shopify 2024 only.
-- Split a compound question into its sub-questions and search for each one separately (a single search rarely covers both a classification and a calculation method).
+- Split a compound question into its sub-questions and pass each as its own entry in the queries list of search_ghg_protocol (one query rarely covers both a classification and a calculation method).
 - For validity or compliance questions, open with a one-line verdict (valid / not valid / cannot be determined) and the main reason, then the supporting points.
 - Use "shall", "required" or "mandatory" only when the cited page says so; if it only recommends, say "recommended".
-- CSV tool results may include data_caveats (data-quality findings for the data you are reporting on). When a caveat affects a claim you make, state it briefly next to that claim; do not present affected groupings as reliable.
+- CSV tool results may include data_caveats (data-quality findings for the data you are reporting on). When a caveat affects a claim you make, state it briefly next to that claim; do not present affected groupings as reliable. Write caveats in plain words next to the claim; never print finding ids such as s3.category_mapping.
 - Be concise (under 200 words unless a report is requested)."""
 
 
@@ -77,6 +77,7 @@ def number_sources(answer, sources):
             nums.append(order.index(k) + 1)
         return "".join(f"[{n}]" for n in sorted(set(nums)))
     out = _TOKEN.sub(sub, answer)
+    out = re.sub(r"\s*\[[sx]\d?\.[a-z_0-9]+\]", "", out)   # finding ids are internal, never shown
     return out, [dict(n=i + 1, id=k, **sources[k]) for i, k in enumerate(order)]
 
 
@@ -104,8 +105,8 @@ DECLS = [
           {"scope": dict(type=I, enum=["1", "2", "3"])}),
     _decl("compare_with_peers", "Company totals next to two peer companies' reported emissions (Docusign FY25, Shopify 2024), with page numbers and comparability caveats."),
     _decl("search_ghg_protocol", "Search the GHG Protocol Corporate Standard (2004). Returns page-marked excerpts. "
-          "Use a self-contained query, e.g. 'Scope 2 definition purchased electricity heat steam'.",
-          {"query": dict(type=S)}, ["query"]),
+          "Pass one self-contained query PER sub-question (e.g. one for how a thing is classified, another for how it is calculated).",
+          {"queries": dict(type="ARRAY", items=types.Schema(type=S))}, ["queries"]),
 ]
 TOOLS = {**et.TOOLS, "compare_with_peers": peers.compare_with_peers}
 PRICE_IN, PRICE_OUT = 0.30, 2.50   # USD per 1M tokens, gemini-2.5-flash paid-tier list price (free tier costs 0)
@@ -139,7 +140,8 @@ class Agent:
     def _run_tool(self, name, args, sources):
         args = {k: (int(v) if k in ("scope", "n") else v) for k, v in dict(args).items()}
         if name == "search_ghg_protocol":
-            r = self.index.search(args["query"], expand=self.expand)
+            qs = args.get("queries") or [args.get("query", "")]
+            r = self.index.search_many([q for q in qs if q], expand=self.expand)
             for p in r["returned_pages"]:
                 sources[f"p.{p}"] = dict(kind="page", label=f"GHG Protocol Corporate Standard (2004), PDF page {p}",
                                          detail=self.index.pages[p])
