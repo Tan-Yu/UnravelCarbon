@@ -1,0 +1,97 @@
+W1124 16:56:42.430000 81495 site-packages/torch/distributed/elastic/multiprocessing/redirects.py:35] NOTE: Redirects are currently not supported in MacOs.
+Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 7564.77it/s]
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[3/49] page     in=  6690 out=  63 cov=[False, True] abst=False | Does Scope 2 include purchased heat and steam?
+[3/49] page+-1  in= 14453 out=  70 cov=[False, True] abst=False | Does Scope 2 include purchased heat and steam?
+[4/49] page     in=  4565 out=   7 cov=[False, False] abst=True | What is Scope 3 and is it mandatory to report?
+[4/49] page+-1  in=  9945 out= 181 cov=[True, True] abst=False | What is Scope 3 and is it mandatory to report?
+[5/49] page     in=  6061 out=  23 cov=[True] abst=False | Which scopes must a company report at a minimum?
+[5/49] page+-1  in= 11980 out=  23 cov=[True] abst=False | Which scopes must a company report at a minimum?
+[6/49] page     in=  3622 out=  14 cov=[True, False, False] abst=False | Which scope does employee business travel belong to?
+[6/49] page+-1  in=  5642 out=  52 cov=[True, False, False] abst=False | Which scope does employee business travel belong to?
+[7/49] page     in=  7364 out=  23 cov=[False, True] abst=False | How should direct CO2 emissions from burning biomass be
+[7/49] page+-1  in= 11225 out=  31 cov=[False, True] abst=False | How should direct CO2 emissions from burning biomass be
+[8/49] page     in=  4734 out=  26 cov=[False, True, True] abst=False | Are CFCs and NOx included in Scope 1?
+[8/49] page+-1  in= 11863 out=  26 cov=[True, True, True] abst=False | Are CFCs and NOx included in Scope 1?
+[9/49] page     in=  6206 out= 103 cov=[True, True] abst=False | Who reports the emissions from transmission and distrib
+[9/49] page+-1  in=  9488 out= 109 cov=[True, True] abst=False | Who reports the emissions from transmission and distrib
+[10/49] page     in=  5194 out= 125 cov=[True, True] abst=False | How should electricity bought for resale to end users b
+[10/49] page+-1  in=  8510 out= 122 cov=[True, True] abst=False | How should electricity bought for resale to end users b
+[11/49] page     in=  5601 out=  84 cov=[True] abst=False | Are upstream emissions from fuel extraction for the ele
+[11/49] page+-1  in= 10559 out= 100 cov=[True] abst=False | Are upstream emissions from fuel extraction for the ele
+[12/49] page     in=  4428 out= 204 cov=[True, True] abst=False | How are emissions from leased assets accounted for?
+[12/49] page+-1  in=  7477 out= 175 cov=[True, True] abst=False | How are emissions from leased assets accounted for?
+[13/49] page     in=  4611 out= 148 cov=[True, True] abst=False | What approaches can be used to consolidate GHG emission
+[13/49] page+-1  in= 10068 out= 223 cov=[True, True] abst=False | What approaches can be used to consolidate GHG emission
+[14/49] page     in=  3390 out= 113 cov=[True, True] abst=False | How do financial control and operational control differ
+[14/49] page+-1  in=  6143 out= 120 cov=[True, True] abst=False | How do financial control and operational control differ
+[15/49] page     in=  4486 out=  93 cov=[True, True] abst=False | How does the equity share approach account for emission
+[15/49] page+-1  in=  5335 out= 105 cov=[True, True] abst=False | How does the equity share approach account for emission
+[16/49] page     in=  3951 out=  39 cov=[True] abst=False | Must the same consolidation approach be used across all
+[16/49] page+-1  in=  7255 out=  56 cov=[True] abst=False | Must the same consolidation approach be used across all
+[17/49] page     in=  2756 out=  90 cov=[True, True] abst=False | What must a company's base year emissions recalculation
+[17/49] page+-1  in=  5037 out=  92 cov=[True, True] abst=False | What must a company's base year emissions recalculation
+[18/49] page     in=  2770 out= 120 cov=[True, True, True] abst=False | Which events trigger a recalculation of base year emiss
+[18/49] page+-1  in=  5034 out= 171 cov=[True, True, True] abst=False | Which events trigger a recalculation of base year emiss
+[19/49] page     in=  4178 out=  94 cov=[True] abst=False | Is base year emissions recalculated for organic growth?
+[19/49] page+-1  in=  5878 out= 104 cov=[True] abst=False | Is base year emissions recalculated for organic growth?
+[20/49] page     in=  3434 out=  56 cov=[True] abst=False | Is the base year recalculated when a company acquires a
+[20/49] page+-1  in=  7190 out=  67 cov=[True] abst=False | Is the base year recalculated when a company acquires a
+[21/49] page     in=  3291 out=  44 cov=[True] abst=False | Does outsourcing electricity production trigger a base 
+[21/49] page+-1  in=  4293 out=  31 cov=[True] abst=False | Does outsourcing electricity production trigger a base 
+[22/49] page     in=  3382 out=  83 cov=[True, True, True] abst=False | How should a company choose its base year?
+[22/49] page+-1  in=  6891 out=  79 cov=[True, True, True] abst=False | How should a company choose its base year?
+[23/49] page     in=  4874 out= 158 cov=[True, True, True] abst=False | How should Scope 2 emissions be calculated and which em
+[23/49] page+-1  in= 10989 out= 112 cov=[True, True, True] abst=False | How should Scope 2 emissions be calculated and which em
+[24/49] page     in=  5421 out=  48 cov=[True] abst=False | Which emission factor does the GHG Protocol require for
+[24/49] page+-1  in= 10659 out=  58 cov=[True] abst=False | Which emission factor does the GHG Protocol require for
+[25/49] page     in=  4401 out=  59 cov=[True] abst=False | Are the GHG Protocol calculation tools mandatory?
+[25/49] page+-1  in=  8886 out=  47 cov=[True] abst=False | Are the GHG Protocol calculation tools mandatory?
+[26/49] page     in=  5158 out= 100 cov=[True, True] abst=False | What are renewable energy certificates (RECs)?
+[26/49] page+-1  in=  8922 out= 107 cov=[True, True] abst=False | What are renewable energy certificates (RECs)?
+[27/49] page     in=  5642 out= 295 cov=[True, True] abst=False | Should GHG trades and offsets be reported separately fr
+[27/49] page+-1  in= 10254 out= 251 cov=[True, True] abst=False | Should GHG trades and offsets be reported separately fr
+[28/49] page     in=  3722 out=  88 cov=[False, False] abst=False | How should double counting of offsets be avoided?
+[28/49] page+-1  in=  6608 out=  88 cov=[False, False] abst=False | How should double counting of offsets be avoided?
+[29/49] page     in=  5096 out= 251 cov=[True, True, True, True, True, True, True] abst=False | What information must a public GHG emissions report inc
+[29/49] page+-1  in=  9673 out= 395 cov=[True, True, True, True, True, True, True] abst=False | What information must a public GHG emissions report inc
+[30/49] page     in=  6035 out= 131 cov=[True, False] abst=False | Which greenhouse gases must be reported separately?
+[30/49] page+-1  in= 11092 out= 124 cov=[True, True] abst=False | Which greenhouse gases must be reported separately?
+[31/49] page     in=  4457 out= 562 cov=[True, True, True, True] abst=False | What optional information should a public GHG report in
+[31/49] page+-1  in=  7792 out= 598 cov=[True, True, True, True] abst=False | What optional information should a public GHG report in
+[32/49] page     in=  4221 out= 217 cov=[True, True, True, True, True] abst=False | What are the five principles of GHG accounting and repo
+[32/49] page+-1  in=  7940 out= 248 cov=[True, True, True, True, True] abst=False | What are the five principles of GHG accounting and repo
+[33/49] page     in=  2875 out= 104 cov=[True, True] abst=False | Can a company use a materiality threshold to leave out 
+[33/49] page+-1  in=  5148 out= 106 cov=[True, False] abst=False | Can a company use a materiality threshold to leave out 
+[34/49] page     in=  2851 out=  83 cov=[True, True] abst=False | What types of estimation uncertainty exist in a GHG inv
+[34/49] page+-1  in=  3901 out=  74 cov=[True, True] abst=False | What types of estimation uncertainty exist in a GHG inv
+[35/49] page     in=  2852 out= 114 cov=[True] abst=False | Can uncertainty estimates be used to compare inventory 
+[35/49] page+-1  in=  3902 out=  85 cov=[True] abst=False | Can uncertainty estimates be used to compare inventory 
+[36/49] page     in=  3328 out= 203 cov=[True, True, True] abst=False | What generic quality checks apply to emission calculati
+[36/49] page+-1  in=  4560 out= 203 cov=[True, True, True] abst=False | What generic quality checks apply to emission calculati
+[37/49] page     in=  2846 out= 139 cov=[True] abst=False | What is the concept of materiality in verification?
+[37/49] page+-1  in=  5518 out= 133 cov=[True] abst=False | What is the concept of materiality in verification?
+[38/49] page     in=  4367 out= 212 cov=[True] abst=False | What steps are involved in setting a GHG target?
+[38/49] page+-1  in=  7508 out= 318 cov=[True] abst=False | What steps are involved in setting a GHG target?
+[39/49] page     in=  3748 out= 243 cov=[True, True] abst=False | What is the difference between a fixed and a rolling ta
+[39/49] page+-1  in=  7296 out= 249 cov=[True, True] abst=False | What is the difference between a fixed and a rolling ta
+[40/49] page     in=  4918 out= 196 cov=[True, False] abst=False | How should offsets be reported when used to meet a GHG 
+[40/49] page+-1  in=  9123 out= 171 cov=[True, True] abst=False | How should offsets be reported when used to meet a GHG 
+[41/49] page     in=  3884 out=  86 cov=[True] abst=False | electricity bought from a utility
+[41/49] page+-1  in=  7679 out=  69 cov=[True] abst=False | electricity bought from a utility
+[42/49] page     in=  5409 out=  89 cov=[True] abst=False | supplier-specific emission factors
+[42/49] page+-1  in= 10770 out= 107 cov=[True] abst=False | supplier-specific emission factors
+[43/49] page     in=  6195 out= 158 cov=[True] abst=False | T&D losses
+[43/49] page+-1  in=  9477 out= 253 cov=[True] abst=False | T&D losses
+[44/49] page     in=  5183 out=   7 cov=[False] abst=True | What is the location-based method for Scope 2 reporting
+[44/49] page+-1  in= 13082 out=   7 cov=[False] abst=True | What is the location-based method for Scope 2 reporting
+[45/49] page     in=  3609 out=   7 cov=[False, False, False] abst=True | How does market-based Scope 2 accounting use contractua
+[45/49] page+-1  in=  5775 out=   7 cov=[False, False, False] abst=True | How does market-based Scope 2 accounting use contractua
+[46/49] page     in=  5559 out=   7 cov=[False] abst=True | How do I calculate Scope 3 purchased goods and services
+[46/49] page+-1  in=  9316 out=   7 cov=[False] abst=True | How do I calculate Scope 3 purchased goods and services
+[47/49] page     in=  5161 out=   7 cov=[False] abst=True | Which targets qualify as science-based targets?
+[47/49] page+-1  in=  8893 out=   7 cov=[False] abst=True | Which targets qualify as science-based targets?
+[48/49] page     in=  5525 out=   7 cov=[True] abst=True | Which IPCC Sixth Assessment Report GWP values should be
+[48/49] page+-1  in=  9473 out=   7 cov=[True] abst=True | Which IPCC Sixth Assessment Report GWP values should be
+[49/49] page     in=  3572 out= 394 cov=[False] abst=False | What are the 15 categories of Scope 3 emissions?
+[49/49] page+-1  in=  7589 out= 362 cov=[False] abst=True | What are the 15 categories of Scope 3 emissions?
