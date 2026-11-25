@@ -1,0 +1,922 @@
+Introduction                                                                                                                     Contents
+
+
+
+Shopify believes entrepreneurship is a driving force for our planet. That’s true for commerce—and it’s true for climate.
+
+
+
+
+
+
+
+Every year, we deploy millions of dollars to support climate entrepreneurs building solutions to future-proof our planet.
+
+
+
+
+
+
+
+In 2024, we made $37 million in carbon credit purchases, bringing our cumulative contracted purchases to $94 million
+
+
+across 54 entrepreneurial, early-stage suppliers.
+                                                                              3                     13           17
+
+
+
+
+No doubt, 2024 was a big year for climate at Shopify.
+
+
+
+
+                                                                                                                               Shopify               Shopify      Shopify's Carbon-
+
+Shopify is committed to helping entrepreneurs start and scale their businesses, and we bring that same commitment to
+                                                                                                                                 Sustainability Fund   Planet App   Neutral Operations
+climate tech. We make early purchases from innovators building technologies that could play a meaningful role in avoiding
+
+
+worst-case climate change.
+
+
+
+
+
+
+
+These purchases help companies attract investment, land additional buyers, and scale their solutions to meaningful
+
+
+heights. Start, scale, repeat. It’s our approach to commerce and it’s our approach to climate.
+
+
+
+
+
+
+
+Our merchants got into the act, too. Through the Shopify Planet app, our carbon-neutral shipping app, Shopify brands
+
+
+generated 24 million carbon-neutral shipments in 2024 and used carbon removal to address more than 15,000 tonnes of
+
+
+emissions.
+
+
+
+
+
+
+
+Our 2024 Climate Report highlights entrepreneurs committed to finding climate solutions.
+
+
+
+
+
+
+
+First, we’ll unpack the Shopify Sustainability Fund, look at the performance of our portfolio, and update you on the
+
+
+progress of a few Sustainability Fund suppliers.
+
+
+
+
+
+
+
+Importantly, we’ll also provide a snapshot of the carbon removal industry. Shopify has had a front row seat to carbon
+
+
+removal since launching the Sustainability Fund in 2019. As you’ll see, we are thrilled by the progress we’ve seen from the
+
+
+innovators flooding into the space. At the same time, we know it’ll be a monster effort to achieve gigatonne-scale results. 
+
+
+
+
+
+
+
+Next, we’ll look at some of the incredible Shopify brands making a difference with the Shopify Planet app, along with the
+
+
+carbon removal suppliers powering carbon-neutral shipping for our merchants. 
+
+
+
+
+
+
+
+The final section explains our carbon-neutral operations commitment and provides an overview of how we used carbon
+
+
+removal to neutralize our 2024 emissions.
+
+
+
+
+
+
+
+We invite you to see how Shopify is turning entrepreneurial power into climate progress.
+
+
+
+
+               2024 Climate Report                                                                                                                                  Introduction         2
+Shopify  
+Sustainability Fund
+The Shopify Sustainability Fund supports climate entrepreneurs developing
+breakthrough technologies to remove carbon dioxide from the atmosphere 
+
+or prevent its release in the first place. As part of this effort, we are a founding
+member of Frontier, an advance market commitment to purchase an initial 
+
+$1 billion of permanent carbon removal by 2030.
+
+
+
+
+           2024 Climate Report                                                         Shopify Sustainability Fund   Overview   3
+                                                                In 2024, we made carbon credit purchases totalling $37 million, bringing our grand total contracted to $94
+
+Key Metrics                                                     million across 54 exciting suppliers. Specific to durable carbon removal (CO2 stored for 100+ years), our
+                                                                portfolio more than doubled year-over-year to reach 193,000 tonnes.
+
+
+
+
+                           Signed     Paid out to   Suppliers                    Tonnes of durable carbon                     Tonnes of durable carbon
+                          contracts    suppliers    supported                       removal purchased                            removal delivered
+
+
+
+
+   2024                   $94m        $29m           54                                   193k                                           16k
+
+
+
+     2023                  $58m         $22m           40                                      84k                                          9k
+
+
+
+
+    2019-2021               $34m         $15m          28                                       46k                                          5k
+
+
+
+
+    2024 Climate Report                                                                           Shopify Sustainability Fund             Key Metrics                        4
+                                                                  In 2024, we made 23 durable carbon removal purchases, with 22 of these shown below. We also partnered with
+
+Purchase Breakdown                                                AirMiners’ Kiloton Fund to support early-stage startups. These purchases span all major carbon removal pathways,
+                                                                  with the most dollars committed to biomass-based and enhanced rock weathering projects—where we found the most
+                                                                  commercial-ready opportunities in 2024.
+
+
+
+
+                           Enhanced rock    Ocean alkalinity
+          Biomass                                              Direct air capture                           Biochar                             Mineralization
+                            weathering       enhancement
+
+
+
+
+      $15m                   $9m              $4m                  $4m                                    $2m                                 $0.2m
+
+
+
+
+    Vaulted
+             CREW
+             CarbonRun
+         280 Earth
+                            Applied Carbon
+                       Anvil
+
+    CO280
+               Terradot
+         Planetary
+         Alithic
+                              Mash Makes
+                           Exterra
+    Exergi
+              Mati
+             Planeteers          Capture6                               Planboo
+
+    NULIFE               Alt Carbon
+                                                                  BIOSORRA
+                         Flux
+
+                         Silica
+
+
+
+
+   2024 Climate Report                                                                          Shopify Sustainability Fund            Purchase Breakdown                            5
+                                                                                                                                     It was a big year for Shopify Sustainability Fund portfolio companies. From the US to the UK to Germany,
+
+Portfolio Progress                                                                                                                   and from biomass to mineralization to direct air capture (DAC), here is a closer look at a handful of portfolio
+                                                                                                                                     companies that took major strides in 2024.
+
+
+
+
+    At 44.01, we are pioneering mineralization technology to turn CO2 into rock. We made significant progress in 2024,     2024 was a landmark year for Phlair. We launched our pilot plant and raised $15.2 million in seed funding, including a  
+    successfully piloting our technology in the UAE and mineralizing 10 tonnes of CO2 in less than 100 days. Since then,   $2.6 million grant from the European Union. 
+
+    we have scaled up UAE operations, and our project was named one of XPRIZE’s Top 20 Carbon Removal projects.
+
+    
+                                                                                                                     In 2025, we will start delivering DAC removal credits to our prepurchase customers—Shopify, Stripe, and Klarna. We will
+    44.01 also raised a $37 million Series A, led by Equinor Ventures, and we are now looking to expand internationally.   also advance the development of project Dawn, the world’s first commercial DAC plant showcasing behind-the-meter  
+    The rock we use for our mineralization projects is found on every continent, making this a truly international         solar integration. 
+
+    climate solution.   
+                                                                                                                           We’re advancing rapidly in developing and deploying our scalable and load-flexible DAC technology. This progress is made
+    Early adopters like Shopify have been critical to demonstrating demand for 44.01’s services, helping to attract        possible by forward-thinking buyers like Shopify, who support our mission to make DAC more cost-effective at scale.
+    investors and financiers for first of a kind projects.
+                                                                                                                           Malte Feucht, Founder and CEO
+    Karan Khimji, Chief Commercial Officer
+
+
+
+
+               Year of  
+               purchase:        2022                 Deal size:
+                                                                  $490k                       Carbon storage
+                                                                                              quantity (t):           3k              Year of  
+                                                                                                                                      purchase:        2023                  Deal size:
+                                                                                                                                                                                            $60k                      Carbon removal
+                                                                                                                                                                                                                      quantity (t):           33
+
+
+
+    2024 Climate Report                                                                                                                                           Shopify Sustainability Fund                  Portfolio Progress                      6
+Portfolio Progress
+
+
+
+
+    In 2024, Vaulted was laser focused on getting tonnes in the ground—we raced to generate 10,000 tonnes of carbon            Funding from Shopify helped us launch our first DAC pilot at the beginning of 2024, the first of its kind in the United
+    removal at our Great Plains facility in Hutchinson, Kansas, which we opened as our first site in late 2023.
+
+             Kingdom. Promising results from lab and pilot testing led Airhive to be selected as a finalist in the XPRIZE in Carbon
+                                                                                                                               Removal—one of 20 finalists out of over 1,000 applicants.
+
+
+    Last year we secured $58 million in contracts with Frontier buyers, were finalists for the XPRIZE in Carbon Removal, and
+    semifinalists for the Department of Energy’s Carbon Dioxide Removal Purchase Pilot Prize. Our progress helped unlock       Over the remainder of 2024, we designed and built our first commercial DAC system, which was installed in Alberta,
+    our $32 million Series A fundraise, which will fund our 2025 growth.
+
+                                                    Canada. In 2025, our key focus will be building our first standalone facility, which will be one of the largest DAC
+                                                                                                                               facilities in the world, capturing 10,000 tonnes of carbon dioxide from the atmosphere each year and permanently
+    Shopify, as a cutting-edge carbon removal buyer, was pivotal in unlocking Vaulted’s progress—generating demand for our     storing it underground.
+
+
+    carbon removal in 2024 and helping secure the equity funding we needed to put the pedal to the metal on growth.
+                                                                                                                               We are always keen to partner with companies like Shopify that are interested in buying durable, high-confidence
+    Julia Reichelstein, Co-Founder and CEO                                                                                     carbon removal.
+
+                                                                                                                               Teresa Geruson, Commercial Lead
+
+
+
+               Year of  
+               purchase:        2023                 Deal size:
+                                                                     $6m                     Carbon removal
+                                                                                             quantity (t):          17k                    Year of  
+                                                                                                                                           purchase:       2023                  Deal size:
+                                                                                                                                                                                                 $60k                      Carbon removal
+                                                                                                                                                                                                                           quantity (t):           113
+
+
+
+    2024 Climate Report                                                                                                                                               Shopify Sustainability Fund                   Portfolio Progress                   7
+Carbon Removal State of the Market
+The carbon removal market strengthened in 2024. Previously challenging areas showed notable progress, with improved
+financing for pilot projects and new government procurement programs launching worldwide. Additionally, protocol
+development remained strong and the market continued to attract diverse new approaches. Yet as the market matures, 
+
+key challenges have intensified. Growing project scale has highlighted critical needs for increased corporate purchasing,
+commercial financing, faster deployment, and expanded policy action.
+
+
+
+In the following pages, we examine nine key indicators across technology, financing, and demand to provide a
+comprehensive view of the market’s path to climate-relevant scale.
+
+
+About This Assessment
+
+Shopify's main goal when buying carbon removal credits is to create market demand, helping suppliers scale and drive
+down costs. Our position as one of the world's leading buyers gives us unique insight into the market. This assessment
+draws from our portfolio data, covering durable carbon removal suppliers only (those who store CO2 for 100+ years).
+
+
+
+
+  Categories       Key Indicators                    Progress in 2023        Progress in 2024        Priority for 2025
+
+  Technology       New approaches                       Strong                   Strong                  Low
+
+
+                   Technology de-risking                Strong                   Moderate                Medium
+
+
+                   Commercial-scale deployment          Moderate                 Moderate                High
+
+
+                   R&D funding                          Limited                  Moderate                Low
+
+  Financing
+                   Pilot-scale financing                Moderate                 Strong                  Medium
+
+
+                   Commercial-scale financing           Limited                  Limited                 Medium
+
+
+                   Corporate buyers                     Moderate                 Moderate                High
+
+
+                   Public policy                        Limited                  Moderate                High
+  Demand
+
+                   Protocol development                 Strong                   Strong                  Low
+
+
+
+
+               2024 Climate Report                                                                                          Shopify Sustainability Fund   Carbon Removal State of the Market   8
+Technology
+                                   2024 PROGRESS     2025 Priority                                                                                                                         2024 PROGRESS     2025 Priority
+
+
+
+New approaches                           Strong              Low                                                                 Commercial-scale deployment                                  Moderate             High
+
+
+
+
+The carbon removal landscape is thriving with over 500 startups reported in 2024. This means new entrants increasingly           Deployment challenges are causing delays as suppliers progress through pilot and towards commercial operations.
+
+need to offer significantly more scalable and affordable solutions to grab the attention of catalytic buyers. While innovation   
+
+continues to matter, the growing maturity of the field suggests buyers should balance their focus—accelerating                   Looking at our portfolio, delays vary by pathway:
+established projects toward commercial viability while selectively supporting only the most promising new approaches.
+                                                                                                                                  Õ DAC: CO2 storage permits are taking longer than expected and suppliers are encountering unforeseen construction
+                                                                                                                                    and commissioning challenges, pushing meaningful DAC carbon removal to 2027 at the earliest°
+                                                                                                                                  Õ Open system pathways (enhanced rock weathering [ERW], ocean alkalinity enhancement [OAE], etc.): These projects
+                                                                                                                                    remain more on schedule, but are facing delays as they go through measurement and verification processes for the
+                                             2024 PROGRESS           2025 Priority
+                                                                                                                                    first time.
+
+Technology de-risking                              Moderate              Medium
+                                                                                                                                 Despite these hurdles, 2024 delivered notable successes: 1PointFive stands as a potential exception to the DAC trend,
+                                                                                                                                 making significant progress with both plant construction and storage permitting. Planetary produced the first OAE credits
+Project delays increased dramatically across the market in 2024. Looking at our portfolio, 88 percent of suppliers are now       at their Halifax, Canada, site. ERW suppliers spread way more rock on fields than in 2023, and waste biomass injection
+behind schedule compared to 50 percent in 2023. Some of this relates to delays with technology de-risking. Suppliers             leader Vaulted is consistently removing carbon at their site in Kansas, US. These success stories are encouraging
+aren't identifying deal-breaking technical issues, but rather small, surmountable challenges that take time to address.          examples from the field, and our portfolio data suggests a broader market trend of increasing carbon removal capacity,
+Each hurdle extends timelines for reaching pilot and ultimately commercial scale.                                                with 75 percent of our suppliers showing growth in 2024.
+
+
+
+
+                                                                                                                                                   Project Timelines                                              Capacity Growth
+
+
+
+                                                                                                                                                                   of portfolio                                                 of portfolio
+
+
+
+
+                                                                                                                                         88%                                                          75%
+                                                                                                                                                                   suppliers behind                                             suppliers increased
+
+                                                                                                                                                                   schedule in 2024                                             capacity in 2024
+
+
+
+
+                                                                                                                                                    from 50% in 2023                                                from 67% in 2023
+
+
+
+
+             2024 Climate Report                                                                                                                   Shopify Sustainability Fund             Carbon Removal State of the Market                                9
+Financing
+
+                                                                                                                                                      128%
+                                                                                                                                                                                      Financing
+                               2024 PROGRESS      2025 Priority
+R&D funding                        Moderate               Low                                                                                                                                             more raised in 2024
+                                                                                                                                                                                                          than 2023 on average
+                                                                                                                                                                                                          across our portfolio
+R&D funding proved more resilient in 2024 than anticipated. Startups continued to secure capital to maintain operations,
+though many proceeded more cautiously with hiring and technology development than they might have preferred.
+
+
+
+Since catalytic buyers remain intentionally selective, eventually the startups who can’t prove their technology, or whose
+technology isn’t impressive enough, will run out of money. Those that succeed on both fronts should continue to get the
+attention of these buyers and secure enough funding to progress.
+                                                                                                                                                                                   2024 PROGRESS       2025 Priority
+                                                                                                                            Commercial-scale financing                                  Limited            Medium
+
+                                                                                                                            Commercial-scale financing has been upgraded to medium priority heading into 2025, as suppliers of highly engineered
+                                          2024 PROGRESS         2025 Priority                                               solutions like DAC are preparing to build their first large-scale facilities. These facilities are incredibly expensive to build
+Pilot-scale financing                          Strong               Medium                                                  and operate and will require the type of infrastructure capital used for other massive industrial projects, such as oil and
+                                                                                                                            gas facilities, power plants, and large manufacturing operations. Heirloom’s impressive $150 million raise suggests this
+                                                                                                                            type of financing may materialize, although it came largely from climate-focused venture investors.
+
+Venture funding for pilot-scale technologies is thriving, with catalytic buyers playing a crucial role.
+                   
+
+
+                                                                                                                          Commercial-scale financing is less urgent for open system pathways like ERW, which operate with lower upfront capital
+Key dynamics:                                                                                                               requirements. While not necessarily optimal, these approaches can more easily rely on a combination of venture funding
+                                                                                                                            and revenue streams from credit deliveries.
+ · Investors are selectively backing the most promising suppliers­
+ · Buyers’ extensive due diligence helps identify top performers­
+ · Suppliers with buyer support attract significant investor interest­
+ · Many funding rounds are oversubscribed
+
+We saw numerous seed through Series B funding rounds in 2024, such as CREW's $5.3 million seed round, 44.01’s  
+$37 million Series A, and 280 Earth's Series B totalling $50 million. On average, suppliers in our portfolio raised a
+notable 128 percent more in 2024 than in 2023.
+
+
+
+
+              2024 Climate Report                                                                                                              Shopify Sustainability Fund                Carbon Removal State of the Market                                   10
+Demand
+                                     2024 PROGRESS      2025 Priority                                                                                                2024 PROGRESS        2025 Priority
+
+Corporate buyers                         Moderate             High                                                                   Public policy                      Moderate                High
+
+
+A lack of corporate buyers remains a significant challenge for the industry. While our portfolio suppliers achieved an impressive   Government involvement in carbon removal policy expanded globally in 2024, extending beyond early US leadership 
+
+337 percent average year-over-year growth in carbon credit sales, demand is still insufficient and concentrated among a small       with several promising new commitments:
+number of buyers.
+
+
+                                                                                                                                         § Canada introduced a $10 million procurement program
+Pathway-specific implications:                                                                                                           § Sweden officially launched its reverse auction for bioenergy with carbon capture and storage
+                                                                                                                                         § Denmark announced a $166 million subsidy for carbon removal
+ § Engineered carbon removal (DAC, bioenergy carbon removal and storage, etc.): These pathways require massive
+   purchase commitments to justify construction of their capital-intensive facilities and most suppliers are nowhere close          While this broader geographic engagement represents positive momentum, policy development at the current rate will 
+
+   to receiving this.                                                                                                              not keep pace with the rapidly accelerating market needs. The voluntary market has been crucial in jumpstarting early
+ § Open system pathways: Suppliers are approaching the point where they may need to slow expansion due to                           projects and driving innovation. However, as projects transition to commercial scale with larger deployments and greater
+   insufficient purchases. Many are ready or nearly ready to scale, but without committed buyers, they cannot expand at             capital requirements, the policy gaps become more consequential. Only governments can mobilize the funding needed for
+   their desired pace.                                                                                                              climate-relevant scale, making public policy a critical focus area requiring dramatically expanded commitments in 2025.
+
+Running Tide’s early ending serves as a cautionary example—the pace of purchases couldn’t match their removal
+capacity. Other early movers are approaching similar territory. More corporate buyers appear willing to engage with
+engineered solutions, particularly DAC, as evidenced by broader corporate involvement with 1PointFive, Heirloom, and
+Climeworks. This is likely due to these suppliers’ greater scale and perceived certainty of credit deliveries. Currently,                                                            2024 PROGRESS     2025 Priority
+catalytic buyers like Shopify and other Frontier buyers, Microsoft, and Milkywire remain the primary supporters of open
+system pathways, though British Airways’ support for CarbonRun and Planetary, and NextGen’s purchase from Alt Carbon
+                                                                                                                                    Protocol development                                  Strong             Low
+
+were promising developments in 2024.
+                                                                                                                                    Third-party protocols are becoming increasingly accessible across the carbon removal market. As of the end of 2024,  
+                                                                                                                                    95 percent of suppliers in our portfolio had either selected a third-party protocol, were evaluating an available one, or
+                                                                                                                                    were collaborating with a registry to develop one for their technology—up significantly from 67 percent in 2023.
+
+                                                                                                                                    
+
+                       Purchases                                              Protocol Development                                  This progress largely resulted from registry Isometric’s work to dramatically expand their protocol list in 2024, adding
+
+
+
+
+    337%                                                                95%
+                                                                                                                                    protocols like Enhanced Weathering in Agriculture and Biochar Production and Storage. Isometric also achieved a major
+                                     more credits sold in                                                                           milestone by issuing the first verified credits for supplier Charm Industrial. Also of note, registry Puro.earth made
+                                                                                                of suppliers in our
+                                     2024 than 2023 on
+                                                                                                portfolio have access               significant strides, including certifying the first DAC company (Climeworks) under their standard.
+
+                                     average across our
+                                                                                                to a third-party protocol           
+
+                                     portfolio
+                                                                                                                                    These protocol advancements are very encouraging for the market, as most buyers require line of sight to a third-party
+         Although a deeper look reveals concerns                                   from 67% in 2023                                 protocol and verification before making a purchase. As a result, measurement, reporting, and verification is becoming
+                                                                                                                                    much less of a concern for the industry than it once was.
+
+
+
+
+             2024 Climate Report                                                                                                                          Shopify Sustainability Fund                  Carbon Removal State of the Market                       11
+Case Study: Running Tide
+Running Tide, a Shopify Sustainability Fund portfolio company, ceased operations in mid-2024. But don’t call it a failure.
+
+
+
+“I know entrepreneurs say this all the time,” says Running Tide founder Marty Odlin, “but I don’t think we failed.”
+
+
+
+Launched in 2017, Running Tide raised more than $50 million and grew to nearly 150 employees before shuttering in
+2024. They pursued multiple ocean carbon removal pathways, including cultivating kelp to transport carbon to the ocean
+floor and sinking wood biomass.
+
+
+
+At its height, Running Tide employed more than a dozen scientists and used cutting-edge monitoring technology to
+quantify their removal. As if measuring wasn’t complicated enough, regulatory realities forced US-based Running Tide to
+deploy off the coast of Iceland.
+
+
+
+        People aren’t quite aware of the magnitude of technical and operational
+        and permitting development and market development that we did,”
+        Marty says. “How complex it was, spanning countries.
+                                                                                                   Marty Odlin
+
+With that complexity came additional costs – and not enough additional customers. As expenses mounted, Running Tide
+wasn’t able to secure larger, longer contracts to support its fast growth and complex operations. 
+
+
+
+According to Marty, it was better to shut down our operations rather than continue to persist at a lower level of quality.
+
+
+
+Running Tide’s journey exposed measurement challenges, highlighted regulatory obstacles, and forced important
+conversations about the ocean’s role in carbon removal. Running Tide’s struggle to land additional customers also
+foreshadowed a lack of demand that has emerged as one of carbon removal’s biggest hurdles.
+
+
+
+This learning wouldn’t have happened without Running Tide. And Running Tide’s progress wouldn’t have happened without
+Shopify. “We did our part, and I’m really proud of it,” Marty says. “We wouldn’t have been able to do that without Shopify.
+And I don’t say that lightly.”
+
+
+
+The hope moving forward, for Marty and for Shopify alike, is that in the process of successfully discovering what doesn’t
+work, we’ll discover what does.
+
+
+
+
+              2024 Climate Report                                                                                              Shopify Sustainability Fund   Case Study: Running Tide   12
+Shopify Planet App
+Planet, a Shopify app, enables merchants to offer carbon-neutral shipping
+by accessing the same carbon removal solutions selected for our
+Sustainability Fund. This helps businesses connect with climate-conscious
+consumers, address their shipping emissions, and generate crucial funding
+for tomorrow’s carbon removal technologies.
+
+
+
+
+          2024 Climate Report                                               Shopify Planet App   Overview   13
+Planet App
+                                                                                                                               Minimizing our environmental footprint is one of our core
+
+                                                                                                                               values, and achieving carbon neutrality in our shipping process
+
+2024 was a big year for Planet, a Shopify app that powers carbon-neutral shipping and enables merchants to connect             is a critical step in that journey. To make this vision a reality,
+
+with modern shoppers.
+                                                                                                        Shopify Planet is an essential partner. Their innovative
+
+                                                                                                                               solutions enable us to calculate and offset the carbon
+
+
+                                                                                                                               emissions generated during shipping, ensuring our products
+According to Shopify data, 43 percent of shoppers are more likely to buy from brands with sustainable offerings like
+                                                                                                                               reach our customers sustainably. Together, we’re making
+carbon-neutral shipping, and PwC reports that consumers are willing to pay a 9.7 percent premium for sustainability.
+
+                                                                                                                               strides towards a greener future, one order at a time.
+
+
+
+In other words, sustainability can be a growth driver for Shopify brands. 
+
+
+
+
+
+Planet is designed to unlock this potential. The app features customizable badges, widgets, and marketing assets that
+
+merchants can leverage to show their climate commitment.
+
+
+
+
+                                         Total Planet app impact through 2024                                                  Sustainability is deeply ingrained in everything we do at
+
+
+
+
+          48m                                         34k                                  $2m
+                                                                                                                               Matriarch Athletics. Partnering with Planet has allowed us to
+
+                                                                                                                               seamlessly support innovative solutions that align with our
+
+                                                                                                                               mission to reduce environmental impact. Their tools empower
+
+                                                                                                                               us to make greener choices, enhance transparency, and
+
+                                                                                                                               connect with conscious customers who share our values.
+
+                                                                                                                               Planet is a must-have for any brand dedicated to making  
+
+             carbon-neutral orders               tonnes of carbon dioxide removed             funding generated                a difference.
+
+
+
+
+And then there’s the climate impact. All of the revenue that Planet generates for carbon removal—seven figures’ worth
+
+at the end of 2024—goes to entrepreneurial, early-stage suppliers dedicated to removing emissions from  
+
+the atmosphere.
+
+
+                                                                                                                               Sustainability is a core value for our brand, and using Planet
+
+                                                                                                                               has been a meaningful step in reducing our environmental
+Together, Planet users have covered shipping emissions for 48 million orders, resulting in more than 34,000 tonnes of
+                                                                                                                               impact. By making our shipping carbon neutral and
+carbon dioxide removal. That’s 34,000 tonnes worth of demand for carbon removal coming from Shopify brands—
+                                                                                                                               contributing a portion of each sale to innovative carbon
+commerce entrepreneurs backing climate entrepreneurs.
+
+
+                                                                                                                               offset programs, Planet allows us to take immediate action
+
+                                                                                                                               while we work toward our broader sustainability goals.
+Check out Planet in the Shopify App Store.
+
+
+
+
+              2024 Climate Report                                                                                        Shopify Planet App                Planet App                               14
+New Feature: Contribution Widget
+                                                                                                                   Here’s what Planet users say about the new customer contributions feature.
+
+
+
+                                                                                                                   Case For Making
+With the contribution widget, customers can “top up” their order by adding a small amount of money at checkout.
+                                                                                                                        Our customers are enthusiastic about the
+All of that money is then funnelled into carbon removal.
+
+                                                                                                                        chance to make a positive impact. Customer
+
+                                                                                                                      contributions were simple to set up and have
+As soon as the feature launched, we realized customers were opting for sustainability. On some stores, customers        been really well received. Anything we can do
+choose to add carbon removal to more than 20 percent of all orders.                                                     as a small business and also collectively to
+                                                                                                                        help move towards a more sustainable future
+                                                                                                                        is something we’ll always get behind!
+
+
+
+
+
+                                                                                                                   Le Jardin Retrouvé
+                                                                                                                        When we saw there was a new possibility
+                                                                                                                        of empowering our customers with helping
+                                                                                                                        the planet, we seized the opportunity. We
+                                                                                                                        were amazed at the results, showing us
+                                                                                                                        that our audience was really in tune with
+                                                                                                                        our brand DNA. We were also amazed at
+                                                                                                                        how easy the Shopify Planet app is to
+                                                                                                                        implement and to use.
+
+
+
+
+                                                                                                                   Maître Philippe & Filles GmbH
+                                                                                                                        The response from our customers to the
+                                                                                                                        opportunity for active climate protection
+                                                                                                                        has exceeded all expectations. We are
+                                                                                                                        firmly committed to creating a sustainable
+                                                                                                                        future – a commitment that is deeply
+                                                                                                                        embedded in our corporate philosophy.
+                                                                                                                        Our customers recognize this authentic
+                                                                                                                        approach and enthusiastically participate
+                                                                                                                        in our initiatives.
+
+
+
+
+             2024 Climate Report                                                                                                                  Shopify Planet App           New Feature: Contribution Widget   15
+                                                                                                                                       These three Sustainability Fund companies are part of Shopify’s broader network of carbon removal suppliers
+
+
+                                                                                                                                       that power carbon-neutral shipping through Planet. Each uses distinct technologies—enhanced rock weathering,
+
+Planet App Carbon Removal Suppliers                                                                                                    biochar production, and direct air capture—to transform merchant orders into meaningful climate action.
+
+
+
+
+  Mati delivers durable carbon removal through enhanced rock weathering     Applied Carbon’s mobile technology converts the crop residues left after                     1PointFive is a carbon capture, utilization, and sequestration company that is
+
+
+
+  (ERW) while enabling climate resilience for smallholder farmers of the    harvest to quality biochar, a durable carbon removal solution and potent soil                working to help curb global temperature rise to 1.5°C through the deployment
+
+
+
+  global south.                                                             health tool for farmers.                                                                     of decarbonization solutions.
+
+
+
+
+        Mati Carbon is excited to be part of Shopify’s Planet app, making         Applied Carbon is excited to be broadening access to biochar                                 The Shopify Planet app is an example of how businesses and
+
+
+        high-quality, science-backed carbon removal accessible at scale.          carbon removal with Shopify. Shopify’s Planet app is a                                       consumers can support climate solutions. Direct air capture
+
+
+        Partnering with global leaders like Shopify allows us to expand           pioneering approach to enable more businesses to participate                                 carbon removal credits can provide a transparent and durable
+
+
+        ERW’s impact—removing carbon while improving soil health and              not only in supporting nascent carbon removal, but through                                   way to address emissions and build a more sustainable future.
+
+
+        livelihoods for thousands of smallholder farmers.                         Applied Carbon’s work, also supporting farmers, soil health,  
+
+
+                                                                                  and resilient food production.
+                                                                                                                                                                               Michael Avery, President and    G   eneral Manager
+
+
+
+
+        Shantanu Agarwal, CEO                                                     Jason Aramburu, Co-Founder and CEO
+
+
+
+
+         2024 Climate Report                                                                                                                                Shopify Planet App           Planet App Carbon Removal Suppliers                              16
+Shopify's  
+Carbon-Neutral
+Operations
+Shopify’s operations generate a carbon footprint through activities including
+business travel, home office energy use, and building energy use. We achieve
+carbon-neutral operations by leveraging the pioneering climate solutions we
+support through the Shopify Sustainability Fund, helping to build the climate
+tech ecosystem needed for sustainable commerce.
+
+
+
+
+          2024 Climate Report                                                   Shopify's Carbon-Neutral Operations   Overview   17
+Energy and Emissions
+                          Key observations from this year’s data
+
+                          Buildings: Our building-related emissions decreased by 72 percent year-over-year as we optimized our real
+                          estate portfolio. We’ve also continued implementing energy efficiency measures across our remaining locations.
+
+                          
+
+                          Business travel: The 8 percent increase in business travel emissions and 16 percent increase in employee
+                          emissions intensity are primarily a result of more in-person activities in 2024. These gatherings were essential
+                          for collaboration and community building.
+
+                          
+
+                          Employee home offices energy: With our employee headcount down slightly from 2023 to 2024, home office
+                          emissions showed a similar decrease (-16 percent).
+
+
+
+
+                          Understanding our emissions methodology
+
+                          Our carbon accounting follows the Greenhouse Gas Protocol. The table displays the emissions categories—Scope
+                          1, Scope 2, Scope 3.6, and Scope 3.7—that we count as our operational emissions. Here’s a breakdown of what’s
+                          included in each.
+
+                          Scope 1 (building natural gas) and Scope 2 (building electricity): Encompasses all Shopify physical spaces,
+                          including global offices. We calculate natural gas consumption and electricity usage, applying regional emission
+                          factors to determine total emissions.
+
+                          
+
+                          Scope 3.6 (business travel): Includes emissions from all business-related flights, rail journeys, rideshares, rental
+                          and personal vehicle usage for business purposes, and hotel stays.
+
+                          
+
+                          Scope 3.7 (employee home office energy): Captures the energy use impact of our distributed workforce. We
+                          model energy consumption for employee home offices—both natural gas and electricity—using employee locations
+                          and regional grid data.
+
+
+
+
+
+    2024 Climate Report                        Shopify's Carbon-Neutral Operations                  Energy and Emissions                         18
+Addressing Our Emissions                                                                                                                                                                                         Ty pe of carbon removal used
+                                                                                                                                                                        100%
+Our carbon-neutral operations commitment means we address all emissions from our buildings, employee offices, and                                                                                                                        78%
+business travel through a combination of renewable energy credits and carbon removal credits. Our renewable energy                                                       75%                     99%                                                                   64%
+
+
+credits primarily come from the Rattlesnake Ridge Wind Power Project in Alberta, Canada, which Shopify helped develop                                                    50%
+through a power purchase agreement with Berkshire Hathaway Energy Canada, while our carbon removal credits are
+sourced from our Sustainability Fund portfolio suppliers.
+                                                                                                               25%
+
+                                                                                                                                                                                                                                      22%                            36%
+We prioritize using durable carbon removal credits (CO2 stored for 100+ years) for covering our operational emissions.                                                     0
+For 2024, we reached an all-time high of 36 percent—up 14 percent from 2023 and up 35 percent from 2022. To date,                                                                                2022                                  2023                           2024
+
+further growth has been constrained by delays across our durable carbon removal suppliers.
+                                                                                                                                                                                                             Durable carbon removal     Nature-based carbon removal
+
+
+
+
+                                                                                                2024 Carbon-neutral operations                                                                                                           Carbon removal credits retired (tCO2e)
+             30,000                                                                                                                                                                                                                   Durable carbon removal
+                                                                                                                                                                                                                                      Vaulted
+                                3,010
+
+                                                                                                                                                                                                                                      Planboo 
+                               3,000
+
+             22,500                                                                                      1,663
+
+
+
+                                                                                 21,959
+                                                                                                                                886
+                                                                                                                                                      890                                                                             Lithos 
+                                1,000
+
+                                                                                                                                                                                                                                      Mati 
+                                    458
+
+                                                                                                                                                                                                                                      Carbofex 
+                                400
+
+     tCO2e   15,000
+                                                                                                                                                                                                                                      Planetary 
+                                92
+
+                                                                                                                                                                         14,453                                                       Charm 
+                                    55
+
+              7,500                                                                                                                                                                                                                   BIOSORRA
+                                  50
+
+                                                            319
+                                                                                                                                                                                                                                      CREW                                        7
+                                                                                                                                                                                                                                      Total                                   8,072
+                                   360
+                                                                                                                                                                                                8,072
+                 0
+                                Scope 1  
+                               emissions 
+                                                         Scope 2  
+                                                        emissions 
+                                                                               Scope 3.6
+                                                                               emissions
+
+                                                                                                      Scope 3.7  
+                                                                                                       emissions
+
+                                                                                                                          Renewable natural
+                                                                                                                             gas credits
+                                                                                                                                              Renewable electricity
+                                                                                                                                                  certificates
+                                                                                                                                                                      Nature-based
+                                                                                                                                                                      carbon removal
+                                                                                                                                                                                            Durable carbon
+                                                                                                                                                                                               removal
+                                                                                                                                                                                                                                      Nature-based carbon removal
+                          (building natural gas)   (building electricity)   (business travel)     (home office energy)
+                                                                                                                                                                                                                                      Pachama 
+                              14,000
+
+                                                                                       Gross operational emissions, reductions and removals                                                                                           IndigoAg                                  453
+                                                                                                                                                                                                                                      Total                                  14,453
+
+
+
+             2024 Climate Report                                                                                                                                                       Shopify's Carbon-Neutral Operations                     Addressing Our Emissions                19
+
