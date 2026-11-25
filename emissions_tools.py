@@ -287,8 +287,10 @@ def load_status() -> dict:
     out = {}
     for s in available():
         rep = quality_report(s)
-        out[f"scope{s}.csv"] = dict(rows=len(load(s)), flags=sum(1 for f in rep["findings"] if f["status"] in ("gap", "verify")),
-                                    arithmetic_ok=next(f["status"] == "pass" for f in rep["findings"] if f["id"].endswith(".arithmetic")))
+        issues = [f for f in rep["findings"] if f["status"] in ("gap", "verify")]
+        arith = next(f["status"] == "pass" for f in rep["findings"] if f["id"].endswith(".arithmetic"))
+        out[f"scope{s}.csv"] = dict(rows=len(load(s)), flags=len(issues), arithmetic_ok=arith, ok=arith and not issues,
+                                    issues=[f["title"] for f in issues])
     return out
 
 

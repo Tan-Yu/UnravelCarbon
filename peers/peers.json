@@ -1,0 +1,168 @@
+[
+ {
+  "id": "docusign",
+  "name": "Docusign",
+  "report": "Docusign Impact Report FY25",
+  "pdf": "peer1_emissions_report.pdf",
+  "file_no": 1,
+  "period": "FY25 (1 Feb 2024 - 31 Jan 2025)",
+  "boundary": "Company-wide; Scope 1, 2 and specified Scope 3 categories (3.1-3.3, 3.5-3.8 shown); limited assurance by Apex (p.52)",
+  "facts": [
+   {
+    "metric": "scope1",
+    "value": 449,
+    "unit": "tCO2e",
+    "page": 50,
+    "check": "Scope 1 449 tCO2e 449 tCO2e",
+    "note": ""
+   },
+   {
+    "metric": "scope2_market",
+    "value": 3.1,
+    "unit": "tCO2e",
+    "page": 49,
+    "check": "Energy indirect (scope 2) GHG emissions 3.1 tCO2e",
+    "note": ""
+   },
+   {
+    "metric": "scope2_location",
+    "value": 8545,
+    "unit": "tCO2e",
+    "page": 50,
+    "check": "8,545 tCO2e",
+    "note": ""
+   },
+   {
+    "metric": "scope3_total",
+    "value": 132058,
+    "unit": "tCO2e",
+    "page": 49,
+    "check": "Other indirect (scope 3) GHG emissions 132,058 tCO2e",
+    "note": ""
+   },
+   {
+    "metric": "scope3_cat_3.1_purchased_goods_market",
+    "value": 101018,
+    "unit": "tCO2e",
+    "page": 50,
+    "check": "101,018 tCO2e",
+    "note": ""
+   },
+   {
+    "metric": "scope3_cat_3.6_business_travel",
+    "value": 16957,
+    "unit": "tCO2e",
+    "page": 50,
+    "check": "3.6 business travel 16,957 tCO2e",
+    "note": ""
+   },
+   {
+    "metric": "scope3_cat_3.7_employee_commuting",
+    "value": 7610,
+    "unit": "tCO2e",
+    "page": 50,
+    "check": "3.7 employee commuting 7,610 tCO2e",
+    "note": ""
+   },
+   {
+    "metric": "intensity",
+    "value": 45,
+    "unit": "tCO2e per $1M revenue",
+    "page": 49,
+    "check": "GHG emissions intensity 45 tCO2e per $1M",
+    "note": ""
+   },
+   {
+    "metric": "renewable_electricity_share",
+    "value": 100,
+    "unit": "%",
+    "page": 49,
+    "check": "% renewable electricity 100%",
+    "note": ""
+   },
+   {
+    "metric": "assurance",
+    "value": "limited assurance verification (Apex Companies)",
+    "unit": "",
+    "page": 52,
+    "check": "limited assurance verification",
+    "note": ""
+   },
+   {
+    "metric": "targets",
+    "value": "SBTi-approved near-term and net-zero targets; net zero by 2050",
+    "unit": "",
+    "page": 28,
+    "check": "net-zero by 2050",
+    "note": ""
+   }
+  ]
+ },
+ {
+  "id": "shopify",
+  "name": "Shopify",
+  "report": "Shopify 2024 Climate Report",
+  "pdf": "peer2_emissions_report.pdf",
+  "file_no": 2,
+  "period": "Calendar year 2024",
+  "boundary": "Operational emissions only: Scope 1 (building gas), Scope 2 (building electricity), Scope 3.6 business travel, Scope 3.7 employee home offices. No other Scope 3 categories reported (p.18)",
+  "facts": [
+   {
+    "metric": "scope1",
+    "value": 360,
+    "unit": "tCO2e",
+    "page": 19,
+    "check": "360",
+    "note": "read from the p.19 waterfall chart label 'Scope 1 emissions (building natural gas)'"
+   },
+   {
+    "metric": "scope2",
+    "value": 319,
+    "unit": "tCO2e",
+    "page": 19,
+    "check": "319",
+    "note": "chart label 'Scope 2 emissions (building electricity)'"
+   },
+   {
+    "metric": "scope3_cat_3.6_business_travel",
+    "value": 21959,
+    "unit": "tCO2e",
+    "page": 19,
+    "check": "21,959",
+    "note": "chart label 'Scope 3.6 emissions (business travel)'"
+   },
+   {
+    "metric": "scope3_cat_3.7_employee_home_office",
+    "value": 1663,
+    "unit": "tCO2e",
+    "page": 19,
+    "check": "1,663",
+    "note": "chart label 'Scope 3.7 emissions (home office energy)'"
+   },
+   {
+    "metric": "boundary_statement",
+    "value": "Scope 1, Scope 2, Scope 3.6 and Scope 3.7 are the operational emissions counted",
+    "unit": "",
+    "page": 18,
+    "check": "Scope 1, Scope 2, Scope 3.6, and Scope 3.7\u2014that we count as our operational emissions",
+    "note": ""
+   },
+   {
+    "metric": "carbon_removal_retired",
+    "value": 22525,
+    "unit": "tCO2e (8,072 durable + 14,453 nature-based)",
+    "page": 19,
+    "check": "14,453",
+    "note": ""
+   },
+   {
+    "metric": "building_emissions_change",
+    "value": -72,
+    "unit": "% year over year",
+    "page": 18,
+    "check": "decreased by 72 percent",
+    "note": ""
+   }
+  ]
+ }
+]

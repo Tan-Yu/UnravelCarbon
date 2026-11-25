@@ -93,7 +93,13 @@ with st.sidebar:
     avail = et.available()
     if not avail: st.warning("No CSVs yet. Upload at least one scope.")
     for f, s in (et.load_status() if avail else {}).items():
-        st.markdown(f"**{f}**: {s['rows']} rows, {s['flags']} flags, arithmetic {'OK' if s['arithmetic_ok'] else 'MISMATCH'}")
+        if s["ok"]:
+            st.markdown(f"✅ **{f}** ({s['rows']} rows): all checks pass")
+        else:
+            why = ["arithmetic does not recompute"] * (not s["arithmetic_ok"]) + s["issues"]
+            st.markdown(f"❌ **{f}** ({s['rows']} rows): {len(why)} to review")
+            for w in why: st.caption(f"• {w}")
+            st.caption("Ask for a quality assessment for details.")
     for sc in (1, 2, 3):
         if sc not in avail: st.markdown(f"**scope{sc}.csv**: missing")
     st.caption("Knowledge base (shared): GHG Protocol Corporate Standard 2004, 116 pages. Peer reports: not loaded.")

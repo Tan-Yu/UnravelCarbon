@@ -7,6 +7,7 @@ from pathlib import Path
 from google import genai
 from google.genai import types
 import emissions_tools as et
+import peers
 from rag import GHGIndex
 
 ROOT = Path(__file__).resolve().parent
@@ -23,7 +24,7 @@ Rules:
 - Cite every Protocol claim like [p.27]. Cite every number about the company's data with the source_id from the tool result, like [D1], placed right after the claim. Never invent pages, quotes, numbers or source ids. Do not write '(source: ...)'.
 - Label each assessment point "Protocol requirement" (the excerpt says "shall"; cite the page) or "Best practice" (a recommendation, "should", or your judgment). Suggest, do not rewrite or change the data.
 - If the excerpts do not answer, say "Cannot verify from the provided documents." and what is missing. The 2004 edition has NO Scope 2 Guidance (2015) and NO Scope 3 Standard (2011): say so when relevant instead of guessing.
-- Peer-company reports are not available yet: say so if asked to compare with peers.
+- For peer comparison call compare_with_peers. State the boundary and period differences from its caveats before drawing any conclusion; never rank the company as better or worse without them. Peers: Docusign FY25 and Shopify 2024 only.
 - Be concise (under 200 words unless a report is requested)."""
 
 
@@ -49,6 +50,7 @@ def describe(name, a):
         "scope3_category_detail": f"{f}: what drives Scope 3 {a.get('category', '')}",
         "supplier_priorities": f"{f}: suppliers ranked by emissions and data quality",
         "recompute": f"scope{a.get('scope')}.csv: CO2e recalculated as quantity x factor for every row",
+        "compare_with_peers": "Peer reports: Docusign FY25 Impact Report (pp.49-50) and Shopify 2024 Climate Report (pp.18-19)",
         "quality_report": "Data-quality checks" + (f" on scope{a['scope']}.csv" if a.get("scope") else " on all scopes"),
     }.get(name, name)
 
@@ -96,10 +98,12 @@ DECLS = [
     _decl("quality_report", "Run all data-quality checks; returns findings with status, severity, evidence and a rule_query "
           "to look up in the Protocol. Omit scope for all scopes plus cross-scope checks.",
           {"scope": dict(type=I, enum=["1", "2", "3"])}),
+    _decl("compare_with_peers", "Company totals next to two peer companies' reported emissions (Docusign FY25, Shopify 2024), with page numbers and comparability caveats."),
     _decl("search_ghg_protocol", "Search the GHG Protocol Corporate Standard (2004). Returns page-marked excerpts. "
           "Use a self-contained query, e.g. 'Scope 2 definition purchased electricity heat steam'.",
           {"query": dict(type=S)}, ["query"]),
 ]
+TOOLS = {**et.TOOLS, "compare_with_peers": peers.compare_with_peers}
 PRICE_IN, PRICE_OUT = 0.30, 2.50   # USD per 1M tokens, gemini-2.5-flash paid-tier list price (free tier costs 0)
 
 
@@ -128,7 +132,7 @@ class Agent:
                 sources[f"p.{p}"] = dict(kind="page", label=f"GHG Protocol Corporate Standard (2004), PDF page {p}",
                                          detail=self.index.pages[p])
             return {"returned_pages": r["returned_pages"], "excerpts": r["text"]}, r
-        res = json.loads(json.dumps(et.TOOLS[name](**args), default=str))
+        res = json.loads(json.dumps(TOOLS[name](**args), default=str))
         self.dcount += 1; sid = f"D{self.dcount}"
         sources[sid] = dict(kind="data", label=describe(name, args), detail=res, tool=name, args=args)
         return {"source_id": sid, **res}, None
