@@ -282,6 +282,36 @@ def quality_report(scope: int | None = None) -> dict:
 
 
 # --------------------------------------------------------------------------- load-time summary for the sidebar
+# Basis for each flag shown in the sidebar, checked by hand against build/ghg-protocol-revised.json (PDF page numbers).
+# "protocol" only when the cited page states it; otherwise "best_practice" with the nearest relevant page, if any.
+P65 = ("A public GHG emissions report that is in accordance with the GHG Protocol Corporate Standard shall include "
+       "the following information")
+REFS = {
+    "period": ("best_practice", 65, P65 + ": ... The reporting period covered.",
+               "The Protocol requires stating the period, not a 12-month one. Fewer than 12 months is flagged because "
+               "annual totals and year-on-year comparison need a full year."),
+    "gases": ("protocol", 65, P65 + ": ... Emissions data for all six GHGs separately (CO2, CH4, N2O, HFCs, PFCs, SF6) "
+              "in metric tonnes and in tonnes of CO2 equivalent.", None),
+    "units": ("protocol", 65, P65 + ": ... Methodologies used to calculate or measure emissions, providing a reference "
+              "or link to any calculation tools used.", "Unstated factor units make the methodology impossible to check."),
+    "steam_factor": ("best_practice", 44, "...supplier-specific, local grid, or other published emission factors.",
+                     "The 2004 standard lists factor types; preferring a supplier-specific steam factor is best practice."),
+    "dual_reporting": ("best_practice", None, None,
+                       "Location- vs market-based reporting comes from the 2015 Scope 2 Guidance, which is not in the knowledge base."),
+    "data_quality": ("best_practice", 53, "Confirm that bibliographical data references are included in spreadsheets "
+                     "for all primary data.", "Share of primary data is a data-quality indicator, not a Protocol requirement."),
+    "category_mapping": ("best_practice", None, None, "Categories that do not match their activities make rankings unreliable."),
+    "supplier_activity": ("best_practice", None, None, "Every supplier mapped to nearly every activity suggests a broken mapping."),
+    "arithmetic": ("best_practice", None, None, "Activity x factor should recompute to the reported CO2e."),
+    "period_mismatch": ("best_practice", None, None, "Scopes covering different periods cannot be summed like-for-like."),
+}
+
+
+def ref_for(finding_id: str) -> dict:
+    basis, page, quote, why = REFS.get(finding_id.split(".", 1)[1], ("best_practice", None, None, None))
+    return dict(basis=basis, page=page, quote=quote, why=why)
+
+
 def load_status() -> dict:
     """One line per CSV for the UI sidebar: rows, flags (gap + verify), arithmetic ok."""
     out = {}
@@ -290,7 +320,7 @@ def load_status() -> dict:
         issues = [f for f in rep["findings"] if f["status"] in ("gap", "verify")]
         arith = next(f["status"] == "pass" for f in rep["findings"] if f["id"].endswith(".arithmetic"))
         out[f"scope{s}.csv"] = dict(rows=len(load(s)), flags=len(issues), arithmetic_ok=arith, ok=arith and not issues,
-                                    issues=[f["title"] for f in issues])
+                                    issues=[dict(title=f["title"], **ref_for(f["id"])) for f in issues])
     return out
 
 

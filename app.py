@@ -98,9 +98,14 @@ with st.sidebar:
         if s["ok"]:
             st.markdown(f"✅ **{f}** ({s['rows']} rows): all checks pass")
         else:
-            why = ["arithmetic does not recompute"] * (not s["arithmetic_ok"]) + s["issues"]
-            st.markdown(f"❌ **{f}** ({s['rows']} rows): {len(why)} to review")
-            for w in why: st.caption(f"• {w}")
+            why = [dict(title="Arithmetic does not recompute", **et.ref_for("x.arithmetic"))] * (not s["arithmetic_ok"]) + s["issues"]
+            st.markdown(f"⚠️ **{f}** ({s['rows']} rows): {len(why)} to review")
+            for w in why:
+                tag = f"GHG Protocol p.{w['page']}" if w["basis"] == "protocol" else "Best practice"
+                tip = (f"**{'Required by the GHG Protocol' if w['basis'] == 'protocol' else 'Best practice, not a Protocol requirement'}**"
+                       + (f"\n\nCorporate Standard (2004), PDF p.{w['page']}: *\"{w['quote']}\"*" if w["quote"] else "")
+                       + (f"\n\n{w['why']}" if w["why"] else ""))
+                st.caption(f"• {w['title']} · `{tag}`", help=tip)
             st.caption("Ask for a quality assessment for details.")
     for sc in (1, 2, 3):
         if sc not in avail: st.markdown(f"**scope{sc}.csv**: missing")

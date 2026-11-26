@@ -21,6 +21,7 @@ The first run downloads `bge-small-en-v1.5` (~130 MB) and caches the embeddings 
 | GHG Protocol questions (RAG) | `rag.py` (hybrid BM25 + bge-small, 300-word chunks, k=5, page±1) |
 | Data-quality assessment | `quality_report`: each finding is marked as a Protocol requirement (cited) or best practice |
 | Peer comparison | `peers.py`: page-verified facts from both peer PDFs, plus comparability caveats |
+| Model choice and comparison | Sidebar: pick a model, or turn on **Compare models** to answer one question with up to 4 models side by side |
 | Summary report | "Generate summary report" button, or `report.py`: an HTML page with charts, a priority matrix and actions |
 
 ## Layout
@@ -33,7 +34,8 @@ rag.py / peers.py   Protocol retrieval / peer facts
 report.py           HTML summary report
 projects/<company>/ scope CSVs, chats/*.jsonl, reports/*.html (one folder per company)
 results/            the six test questions answered by every agent version + COMPARISON.md
-EXPERIMENTS.md      ledger of every experiment (E01–E15)
+eval_agent.py       scored rubric eval of the six brief questions (E16)
+EXPERIMENTS.md      ledger of every experiment (E01–E16)
 build/              extraction, eval sets and experiment scripts
 ```
 
@@ -41,6 +43,7 @@ build/              extraction, eval sets and experiment scripts
 
 ```bash
 python3 run_tests.py                          # six brief questions -> build/cache/test_questions.md
+python3 eval_agent.py --runs 3                # scored eval -> results/eval/*.json (E16)
 python3 build/stage2.py                       # retrieval answer-quality experiment (E06)
 python3 build/make_peers.py                   # rebuild peers/peers.json (asserts every fact against its page)
 for f in tests/test_*.py; do python3 $f; done # unit tests
@@ -48,4 +51,4 @@ for f in tests/test_*.py; do python3 $f; done # unit tests
 
 To add a company, use **New project** in the sidebar and upload its CSVs. The upload is validated and loaded without a restart.
 
-See [WRITEUP.md](WRITEUP.md) for the design, the evaluation and the known limits.
+See [WRITEUP.md](WRITEUP.md) for the design, the evaluation, the limits and future improvements.
