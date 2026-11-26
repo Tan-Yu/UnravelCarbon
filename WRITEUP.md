@@ -9,6 +9,8 @@ A single Gemini agent (`gemini-4-hydrogen`, temperature 0) runs a manual tool lo
 Every number is cited as a data source and every rule as a PDF page. The UI turns these into clickable chips that show the underlying table or page text. The design principle is that **the model writes prose, and code owns the facts.**
 
 ## Architecture
+![How the agent flows: GHG setup, company setup, a first question, and asking again](docs/agent_flow.png)
+
 - **Data.** Each company has its own folder in `projects/<company>/`. Uploads are schema-validated and hot-reloaded, using a cache keyed on file modification time. Each data tool result carries that project's open data-quality findings (`data_caveats`), so answers state the caveats inline.
 - **Knowledge.**
   - The Protocol PDF is extracted with plain `pdftotext`, which was chosen over `-layout` in E01.
@@ -21,7 +23,7 @@ Every number is cited as a data source and every rule as a PDF page. The UI turn
   3. Internal ids are stripped from answers.
 - **Model choice in the UI.** The user can pick the model, or compare up to four Gemini models side by side on the same question, with latency, tokens, cost and whether a guard fired.
 - **Data-status flags** in the sidebar are each tagged as a GHG Protocol requirement (with the PDF page and quote, shown on hover) or as best practice. The page references were checked by hand.
-- **Report.** Code collects the figures, the LLM only picks hotspot ids and writes actions, and code attaches the numbers. The page is self-contained HTML/SVG.
+- **Summary report** ("Generate summary report" button, `report.py`). Code collects the totals, the hotspots in each scope and the data-quality findings. One LLM call proposes reduction actions, each pointing to a hotspot id with an effort rating and a first step; code then attaches the tonnes and shares, so no figure in the advice comes from the model. The output is a single self-contained HTML page: headline, scope cards, hotspot charts, a priority matrix (effort vs size, flagged where the data must be fixed first), action cards, the data-quality list and the peer comparison, saved to `projects/<company>/reports/`.
 
 ## Data observations
 - Each scope file has 3 flagged findings, and all arithmetic recomputes.
@@ -29,10 +31,7 @@ Every number is cited as a data source and every rule as a PDF page. The UI turn
 - Supplier and category fields have gaps, so supplier prioritisation carries explicit data caveats.
 
 ## Evaluation
-- **Retrieval (E02–E07):**
-  - 49 queries, each with a quote-verified gold page, including 6 negatives.
-  - Hybrid retrieval had the best hit rate (0.90).
-  - Returning page±1 raised answer key-point coverage from 0.88 to 0.93 at 1.8× the tokens.
+- **Retrieval:** see the RAG experiments section below.
 - **Agent (E10–E13):**
   - The six brief questions were rerun for every prompt and model version and saved side by side in `results/`.
   - Moving to `gemini-4-hydrogen` fixed the two failures that prompt changes alone did not: Core 1's calculation method and Core 2's verdict consistency.
@@ -41,6 +40,16 @@ Every number is cited as a data source and every rule as a PDF page. The UI turn
   - With 3 fresh runs per question, 114 of 114 checks passed with no variance between runs. The only first-pass failure was a bug in the grader, not in the agent.
   - This proves facts and grounding are present. It does not grade prose quality.
 - **Ledger.** Every experiment, with its caveats, is in `EXPERIMENTS.md`.
+
+## RAG experiments (E01–E08)
+The retrieval setup was chosen by measurement, not by default. Full details and caveats are in `EXPERIMENTS.md`.
+- **Extraction (E01).** `pdftotext -layout` interleaved the PDF's two columns; plain mode kept key sentences intact on the pages checked, so plain text is used.
+- **Eval set (E04).** 49 questions, each with a gold page verified by an exact quote, plus 6 negatives whose answers are not in the PDF.
+- **Grid search without an LLM (E02–E04).** 135 configurations: chunk size (page, 150, 300, 600 words) × retriever (BM25, dense, hybrid) × top-k (1, 3, 5) × what is returned (chunk, page, page±1, page±2). Hybrid had the best hit rate (0.90 vs 0.85 BM25, 0.82 dense). The top configurations were within noise of each other, so 300-word chunks, hybrid, k=5 were kept.
+- **Error analysis (E05).** Two failure types: answers scattered across glossary and appendix pages, and negatives that sound answerable scoring as high as real questions (the out-of-scope limit below).
+- **Answer quality with an LLM (E06).** Returning page±1 instead of the page alone raised key-point coverage from 0.88 to 0.93 and correct abstentions from 5/6 to 6/6, at 1.8× the input tokens. Page±1 is the default; the sidebar can switch it.
+- **Embedding models (E07–E08).** Six models compared: bge-small, bge-base, gte-base, MiniLM, e5-base and Gemini's API embedding. With hybrid retrieval all landed within 0.85–0.89 recall, so the small local bge-small was kept: free, private, and indexed in seconds.
+- **Caveat.** 43 scorable questions means differences under about 5 points are noise, and the E06 judge is the same model that answered.
 
 ## Scaling
 - **More companies:** swap the folder-per-project store for Postgres or DuckDB plus object storage, and keep the same tool interface.

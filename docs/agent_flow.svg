@@ -1,0 +1,164 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1180" viewBox="0 0 1600 1180" font-family="Inter, Helvetica, Arial, sans-serif">
+<defs>
+  <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#3b4a45"/></marker>
+  <marker id="g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#c2410c"/></marker>
+  <style>
+    .t{font-size:30px;font-weight:700;fill:#0e1a16}
+    .lane{font-size:15px;font-weight:700;letter-spacing:1.5px;fill:#5b6b66}
+    .h{font-size:16px;font-weight:700;fill:#0e1a16}
+    .s{font-size:13px;fill:#3b4a45}
+    .m{font-size:12.5px;fill:#5b6b66;font-style:italic}
+    .box{fill:#fff;stroke:#c9d3cf;stroke-width:1.5}
+    .llm{fill:#eef4ff;stroke:#7c9cd6;stroke-width:1.5}
+    .guard{fill:#fff4ec;stroke:#e08a4c;stroke-width:1.5}
+    .store{fill:#effaf4;stroke:#5fbf8e;stroke-width:1.5}
+    .ln{stroke:#3b4a45;stroke-width:1.6;fill:none;marker-end:url(#a)}
+    .lg{stroke:#c2410c;stroke-width:1.6;fill:none;stroke-dasharray:5 4;marker-end:url(#g)}
+  </style>
+</defs>
+<rect width="1600" height="1180" fill="#f7f6f2"/>
+<text x="40" y="54" class="t">Emissions agent: how a question flows</text>
+<text x="40" y="82" class="s">Code owns the facts (numbers, pages); the model only picks tools and writes prose. Green = stored on disk, blue = LLM call, orange = guard.</text>
+
+<!-- Lane 1 -->
+<rect x="24" y="104" width="1552" height="196" rx="14" fill="#eceae3"/>
+<text x="44" y="132" class="lane">1 · GHG PROTOCOL, ONCE PER DOCUMENT AND PER APP START</text>
+<rect x="44" y="150" width="250" height="130" rx="10" class="box"/>
+<text x="60" y="176" class="h">GHG Protocol PDF</text>
+<text x="60" y="198" class="s">Corporate Standard (2004),</text>
+<text x="60" y="216" class="s">116 pages</text>
+<text x="60" y="262" class="m">new standard = new PDF</text>
+<path d="M294,215 L340,215" class="ln"/>
+<rect x="340" y="150" width="270" height="130" rx="10" class="store"/>
+<text x="356" y="176" class="h">Extract page text (build)</text>
+<text x="356" y="198" class="s">pdftotext, one record per page</text>
+<text x="356" y="216" class="s">→ build/ghg-protocol-*.json</text>
+<text x="356" y="262" class="m">runs once, ahead of time</text>
+<path d="M610,215 L656,215" class="ln"/>
+<rect x="656" y="150" width="270" height="130" rx="10" class="box"/>
+<text x="672" y="176" class="h">Chunk + keyword index</text>
+<text x="672" y="198" class="s">300-word chunks, 20% overlap</text>
+<text x="672" y="216" class="s">BM25 built in memory</text>
+<text x="672" y="262" class="m">milliseconds, at app start</text>
+<path d="M926,215 L972,215" class="ln"/>
+<rect x="972" y="150" width="290" height="130" rx="10" class="store"/>
+<text x="988" y="176" class="h">Embeddings (bge-small)</text>
+<text x="988" y="198" class="s">loaded from build/cache/*.npy;</text>
+<text x="988" y="216" class="s">computed + saved only if missing</text>
+<text x="988" y="262" class="m">~1 s load instead of re-embedding</text>
+<path d="M1262,215 L1308,215" class="ln"/>
+<rect x="1308" y="150" width="250" height="130" rx="10" class="box"/>
+<text x="1324" y="176" class="h">Hybrid index ready</text>
+<text x="1324" y="198" class="s">BM25 + vectors, merged</text>
+<text x="1324" y="216" class="s">by reciprocal rank fusion</text>
+<text x="1324" y="262" class="m">cached for the whole server</text>
+
+<!-- Lane 2 -->
+<rect x="24" y="316" width="1552" height="196" rx="14" fill="#eceae3"/>
+<text x="44" y="344" class="lane">2 · NEW COMPANY, ONCE PER COMPANY (AND ON EACH UPLOAD)</text>
+<rect x="44" y="362" width="250" height="130" rx="10" class="box"/>
+<text x="60" y="388" class="h">New project</text>
+<text x="60" y="410" class="s">sidebar creates</text>
+<text x="60" y="428" class="s">projects/&lt;company&gt;/</text>
+<path d="M294,427 L340,427" class="ln"/>
+<rect x="340" y="362" width="270" height="130" rx="10" class="box"/>
+<text x="356" y="388" class="h">Upload scope1-3 CSVs</text>
+<text x="356" y="410" class="s">schema validated first;</text>
+<text x="356" y="428" class="s">rejected files are not saved</text>
+<path d="M610,427 L656,427" class="ln"/>
+<rect x="656" y="362" width="270" height="130" rx="10" class="store"/>
+<text x="672" y="388" class="h">Saved + loaded</text>
+<text x="672" y="410" class="s">pandas cache keyed on file</text>
+<text x="672" y="428" class="s">modification time</text>
+<text x="672" y="474" class="m">new upload reloads, no restart</text>
+<path d="M926,427 L972,427" class="ln"/>
+<rect x="972" y="362" width="290" height="130" rx="10" class="box"/>
+<text x="988" y="388" class="h">Deterministic quality checks</text>
+<text x="988" y="410" class="s">arithmetic recompute, period,</text>
+<text x="988" y="428" class="s">gases, units, mappings</text>
+<text x="988" y="474" class="m">code only, no LLM</text>
+<path d="M1262,427 L1308,427" class="ln"/>
+<rect x="1308" y="362" width="250" height="130" rx="10" class="box"/>
+<text x="1324" y="388" class="h">Sidebar data status</text>
+<text x="1324" y="410" class="s">each flag tagged GHG</text>
+<text x="1324" y="428" class="s">Protocol p.N or best practice</text>
+<text x="1324" y="474" class="m">quote shown on hover</text>
+
+<!-- Lane 3 -->
+<rect x="24" y="528" width="1552" height="420" rx="14" fill="#eceae3"/>
+<text x="44" y="556" class="lane">3 · A QUESTION ABOUT THE COMPANY (FIRST TIME)</text>
+<rect x="44" y="580" width="220" height="110" rx="10" class="box"/>
+<text x="60" y="606" class="h">User question</text>
+<text x="60" y="628" class="s">+ chosen model</text>
+<text x="60" y="646" class="s">+ history (empty at first)</text>
+<path d="M264,635 L316,635" class="ln"/>
+<rect x="316" y="580" width="280" height="110" rx="10" class="llm"/>
+<text x="332" y="606" class="h">Gemini tool loop</text>
+<text x="332" y="628" class="s">temperature 0, up to 6 steps;</text>
+<text x="332" y="646" class="s">model decides which tools to call</text>
+<path d="M596,612 C640,612 640,600 680,600" class="ln"/>
+<path d="M596,635 L680,692" class="ln"/>
+<path d="M596,658 C640,700 640,770 680,784" class="ln"/>
+<rect x="680" y="572" width="380" height="68" rx="10" class="box"/>
+<text x="696" y="596" class="h">Data tools (pandas)</text>
+<text x="696" y="618" class="s">totals, breakdowns, suppliers; each result carries data caveats</text>
+<rect x="680" y="658" width="380" height="68" rx="10" class="box"/>
+<text x="696" y="682" class="h">search_ghg_protocol</text>
+<text x="696" y="704" class="s">one query per sub-question; top 5 pages + neighbours (±1)</text>
+<rect x="680" y="750" width="380" height="68" rx="10" class="store"/>
+<text x="696" y="774" class="h">compare_with_peers</text>
+<text x="696" y="796" class="s">hand-curated facts, each quote asserted on its page</text>
+<path d="M1060,606 C1090,606 1090,640 1060,640" class="ln" opacity="0"/>
+<path d="M680,700 C560,740 470,740 456,692" class="ln"/>
+<text x="466" y="800" class="m">results back to the model;</text><text x="466" y="818" class="m">loop until it answers</text>
+<path d="M456,690 L456,836" class="ln"/>
+<rect x="316" y="836" width="280" height="94" rx="10" class="guard"/>
+<text x="332" y="862" class="h">Citation guard</text>
+<text x="332" y="884" class="s">cites a page never retrieved?</text>
+<text x="332" y="902" class="s">→ search again, retry once</text>
+<path d="M596,883 L680,883" class="ln"/>
+<rect x="680" y="836" width="290" height="94" rx="10" class="guard"/>
+<text x="696" y="862" class="h">Claim check (LLM)</text>
+<text x="696" y="884" class="s">each "shall / required" sentence</text>
+<text x="696" y="902" class="s">vs its cited page → rewrite once</text>
+<path d="M316,883 C250,883 230,800 300,680" class="lg"/>
+<text x="150" y="790" class="m" fill="#c2410c">retry</text>
+<path d="M970,883 L1056,883" class="ln"/>
+<rect x="1056" y="836" width="230" height="94" rx="10" class="box"/>
+<text x="1072" y="862" class="h">Answer</text>
+<text x="1072" y="884" class="s">numbered sources,</text>
+<text x="1072" y="902" class="s">internal ids stripped</text>
+<path d="M1286,883 L1330,883" class="ln"/>
+<rect x="1330" y="572" width="228" height="358" rx="10" class="box"/>
+<text x="1346" y="598" class="h">In the UI</text>
+<text x="1346" y="622" class="s">• answer with [1] [2] chips</text>
+<text x="1346" y="642" class="s">• click a chip: the exact</text>
+<text x="1346" y="660" class="s">  table or PDF page text</text>
+<text x="1346" y="682" class="s">• "How I got this": every</text>
+<text x="1346" y="700" class="s">  tool call and its pages</text>
+<text x="1346" y="722" class="s">• tokens, latency, cost</text>
+<rect x="1346" y="750" width="196" height="90" rx="8" class="store"/>
+<text x="1358" y="774" class="h">Chat log</text>
+<text x="1358" y="794" class="s">projects/&lt;co&gt;/chats/</text>
+<text x="1358" y="812" class="s">&lt;session&gt;.jsonl: model,</text>
+<text x="1358" y="830" class="s">prompt, tokens, cost</text>
+
+<!-- Lane 4 -->
+<rect x="24" y="964" width="1552" height="196" rx="14" fill="#eceae3"/>
+<text x="44" y="992" class="lane">4 · ASKING AGAIN</text>
+<rect x="44" y="1010" width="490" height="130" rx="10" class="box"/>
+<text x="60" y="1036" class="h">Follow-up, same session</text>
+<text x="60" y="1058" class="s">the conversation history goes back to the model, so "what about</text>
+<text x="60" y="1076" class="s">Scope 2?" is understood. Tools re-run on the current data, so every</text>
+<text x="60" y="1094" class="s">number is fresh and re-cited.</text>
+<rect x="556" y="1010" width="490" height="130" rx="10" class="box"/>
+<text x="572" y="1036" class="h">New session (New conversation or browser reload)</text>
+<text x="572" y="1058" class="s">history starts empty: the model remembers nothing from earlier</text>
+<text x="572" y="1076" class="s">chats. The old chat stays in its .jsonl log for audit and eval,</text>
+<text x="572" y="1094" class="s">not fed back to the model.</text>
+<rect x="1068" y="1010" width="490" height="130" rx="10" class="store"/>
+<text x="1084" y="1036" class="h">What is reused (no reprocessing)</text>
+<text x="1084" y="1058" class="s">GHG index and embeddings (lane 1) stay in server memory;</text>
+<text x="1084" y="1076" class="s">company CSVs stay cached until the file changes (lane 2).</text>
+<text x="1084" y="1094" class="s">Only the LLM calls and tool runs happen per question.</text>
+</svg>
