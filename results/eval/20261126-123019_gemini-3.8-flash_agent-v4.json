@@ -1,0 +1,524 @@
+{
+ "model": "gemini-3.8-flash",
+ "prompt": "agent-v4",
+ "runs": 2,
+ "rows": [
+  {
+   "tag": "Core 1",
+   "run": 1,
+   "passed": 7,
+   "total": 7,
+   "checks": [
+    {
+     "check": "says Scope 3",
+     "ok": true
+    },
+    {
+     "check": "owned vehicles are Scope 1",
+     "ok": true
+    },
+    {
+     "check": "gives a calculation method",
+     "ok": true
+    },
+    {
+     "check": "searched the Protocol",
+     "ok": true
+    },
+    {
+     "check": "cites scope definition / travel page",
+     "ok": true
+    },
+    {
+     "check": "no uncited pages",
+     "ok": true
+    },
+    {
+     "check": "no leaked ids",
+     "ok": true
+    }
+   ],
+   "answer": "**Verdict:** Employee business travel is typically classified under **Scope 3**, unless the travel occurs in vehicles owned or controlled by the company, in which case it is included under **Scope 1** [1].\n\n---\n\n### Reasoning: Scope 1 vs. Scope 3\n* **Best practice:** To determine if an activity falls within Scope 1 or Scope 3, the company **should** refer to the selected consolidation approach (equity share or control) used in setting its organizational boundaries [1].\n* **Scope 1 (Direct):** Activities are included under Scope 1 if the pertinent emission sources are owned or controlled by the company (for example, transportation conducted in company-owned or company-controlled vehicles) [1].\n* **Scope 3 (Indirect):** Transportation-related activities such as \"employee business travel\" where the vehicles are not owned or controlled by the company are classified as Scope 3 [1].\n\n---\n\n### How to Calculate Business Travel Emissions\nThe GHG Protocol outlines the standard approach for calculating these emissions:\n\n1. **Collect Activity Data:** Gather travel activity records, such as fuel use or passenger miles, broken down by mode of transport (such as road, air, rail, or water) [2][3].\n2. **Select Emission Factors:** Choose published or third-party emission factors corresponding to the travel mode [2][3].\n3. **Calculate:** Multiply the activity data by the relevant emission factor [2]:\n   $$\\text{Emissions} = \\text{Activity Data (e.g., passenger miles)} \\times \\text{Emission Factor}$$\n4. **Accuracy check (Best practice):** When calculating flight emissions, ensure round-trip distance is used rather than one-way distance to avoid underestimating emissions [4]. Companies may also use the GHG Protocol mobile combustion calculation tools available on its website [2][3].",
+   "tools": [
+    "search_ghg_protocol",
+    "claim_check"
+   ],
+   "tokens_in": 36652,
+   "tokens_out": 913,
+   "cost_usd": 0.01328,
+   "latency": 18.0
+  },
+  {
+   "tag": "Core 1",
+   "run": 2,
+   "passed": 7,
+   "total": 7,
+   "checks": [
+    {
+     "check": "says Scope 3",
+     "ok": true
+    },
+    {
+     "check": "owned vehicles are Scope 1",
+     "ok": true
+    },
+    {
+     "check": "gives a calculation method",
+     "ok": true
+    },
+    {
+     "check": "searched the Protocol",
+     "ok": true
+    },
+    {
+     "check": "cites scope definition / travel page",
+     "ok": true
+    },
+    {
+     "check": "no uncited pages",
+     "ok": true
+    },
+    {
+     "check": "no leaked ids",
+     "ok": true
+    }
+   ],
+   "answer": "**Verdict**: Employee business travel is classified under **Scope 3** (or under **Scope 1** if conducted in company-owned or controlled vehicles) [1][2][3].\n\n---\n\n### 1. Classification & Reasoning\n* **Scope 1 (Protocol requirement)**: Direct GHG emissions occur from sources owned or controlled by the company [1]. Transportation of employees falls under Scope 1 when emissions result from fuel combustion in company-owned or controlled mobile combustion sources (e.g., company-owned vehicles or aircraft) [1][2][3].\n* **Scope 3 (Best practice)**: Scope 3 is an optional reporting category that accounts for all other indirect emissions resulting from the activities of the company but occurring at sources not owned or controlled by the company [1]. Employee business travel using commercial carriers or third-party transport is listed as an example of a Scope 3 transport-related activity [3][4]. Reporting on Scope 3 is optional, not mandatory, under the 2004 Corporate Standard [1][3].\n\n---\n\n### 2. How to Calculate Business Travel Emissions\n* **General Calculation Approach (Best practice)**:\n  Emissions calculations generally rely on multiplying activity data by an appropriate emission factor [5]:\n  $$\\text{Emissions} = \\text{Activity Data} \\times \\text{Emission Factor}$$\n* **Implementation Steps (Best practice)**:\n  1. **Collect Activity Data**: Gather travel distance (e.g., passenger-kilometers or passenger-miles) or fuel use data from booking tools, travel agents, or expense records [5]. Ensure round-trip distances are accounted for to prevent undercounting [6].\n  2. **Select Emission Factors**: Obtain representative published emission factors appropriate to the transport mode (e.g., air travel by haul length, rail, rental cars) [5].\n  3. **Calculate**: Multiply activity data by the corresponding emission factors to determine total GHG emissions [5].\n\n*(Note: Detailed category-specific requirements for Scope 3 Category 6 Business Travel are defined in the GHG Protocol Scope 3 Standard (2011), which is not included in the 2004 Corporate Standard).*",
+   "tools": [
+    "search_ghg_protocol",
+    "claim_check"
+   ],
+   "tokens_in": 27930,
+   "tokens_out": 1116,
+   "cost_usd": 0.01117,
+   "latency": 29.4
+  },
+  {
+   "tag": "Core 2",
+   "run": 1,
+   "passed": 7,
+   "total": 7,
+   "checks": [
+    {
+     "check": "opens with a verdict",
+     "ok": true
+    },
+    {
+     "check": "flags the 3-month period",
+     "ok": true
+    },
+    {
+     "check": "mentions steam",
+     "ok": true
+    },
+    {
+     "check": "checked the data",
+     "ok": true
+    },
+    {
+     "check": "no invented requirement on period length",
+     "ok": true
+    },
+    {
+     "check": "no uncited pages",
+     "ok": true
+    },
+    {
+     "check": "no leaked ids",
+     "ok": true
+    }
+   ],
+   "answer": "**Verdict: Cannot be determined / Not valid as a complete corporate inventory** due to an incomplete reporting period and missing documentation, though the row-level arithmetic itself is correct.\n\n### Supporting Points\n\n1. **Incomplete reporting period (Protocol requirement)**\n   A public GHG inventory report shall include the reporting period covered [1]. The provided Scope 2 records only cover three months (January 15, 2024 to March 15, 2024) [2], representing a partial period rather than a full operating year.\n\n2. **Steam emission factor source is undocumented (Best practice / Protocol guidance)**\n   Purchased steam accounts for 84.49% of Scope 2 emissions (2,116.40 tCO2e of 2,505.04 tCO2e) [3]. A single factor of 0.074 is used across all facilities and regions without a stated source [2]. Transparent documentation of parameters and data references is essential for credibility and verification [4][5].\n\n3. **Unstated factor units and mixed scaling (Best practice)**\n   Factor units are omitted, and calculations rely on mixed internal scaling (0.001 for kWh; 1.0 for MMBtu) [2][6]. The Protocol recommends checking that emission units and conversion factors are properly labeled [4].\n\n4. **Calculation arithmetic (Best practice)**\n   Recomputing activity data against emission factors confirms that all 18 of 18 rows match the reported `CO2e_Tonnes` within rounding [2][6].\n\n*(Note: The 2004 Corporate Standard does not contain the dual market-based and location-based reporting requirement; that was introduced in the 2015 Scope 2 Guidance.)*",
+   "tools": [
+    "quality_report",
+    "recompute",
+    "scope2_breakdown",
+    "search_ghg_protocol"
+   ],
+   "tokens_in": 40338,
+   "tokens_out": 540,
+   "cost_usd": 0.01345,
+   "latency": 14.5
+  },
+  {
+   "tag": "Core 2",
+   "run": 2,
+   "passed": 7,
+   "total": 7,
+   "checks": [
+    {
+     "check": "opens with a verdict",
+     "ok": true
+    },
+    {
+     "check": "flags the 3-month period",
+     "ok": true
+    },
+    {
+     "check": "mentions steam",
+     "ok": true
+    },
+    {
+     "check": "checked the data",
+     "ok": true
+    },
+    {
+     "check": "no invented requirement on period length",
+     "ok": true
+    },
+    {
+     "check": "no uncited pages",
+     "ok": true
+    },
+    {
+     "check": "no leaked ids",
+     "ok": true
+    }
+   ],
+   "answer": "**Verdict:** **Cannot be determined / Not fully compliant** \u2014 while all 18 activity-row calculations recompute accurately [1], your reporting boundary covers only a 3-month period rather than a full reporting year, and key methodology documentation is missing.\n\n### Assessment Findings\n\n1. **Incomplete Reporting Period** (*Protocol requirement*):\n   - A public GHG report shall state the reporting period covered [2]. Standard corporate reporting covers an annual cycle [3][4], whereas your data spans only 3 months (January 15, 2024 to March 15, 2024) [1]. \n\n2. **Emission Factor Selection & Documentation** (*Best practice / Recommendation*):\n   - Scope 2 covers emissions from the generation of purchased electricity, heat, or steam [5][6].\n   - **Electricity:** Uses published regional grid factors (CAISO, ERCOT, NEISO, PJM) [1], which aligns with the recommendation to use supplier-specific or regional grid emission factors at generation (EFG) [7][8].\n   - **Steam:** Steam accounts for 84.5% of your Scope 2 emissions (2,116.4 tonnes CO\u2082e) using a flat factor of 0.074 across facilities, but its source/derivation is undocumented [1]. Source- or supplier-specific factors are preferred over generic factors [7].\n   - **Factor Units:** Mixed calculation scales (0.001 for kWh, 1.0 for MMBtu) are applied without explicit units on the factors [1][9]. The Protocol requires clear documentation of calculation methodologies and emission factor sources [2][10].\n\n3. **Arithmetic Integrity** (*Best practice*):\n   - All 18 rows recompute within rounding tolerance [1][9].\n\n*(Note: Dual reporting under the market-based vs. location-based method comes from the 2015 Scope 2 Guidance, which is not part of the 2004 Corporate Standard [11]).*",
+   "tools": [
+    "quality_report",
+    "recompute",
+    "search_ghg_protocol"
+   ],
+   "tokens_in": 34520,
+   "tokens_out": 580,
+   "cost_usd": 0.01181,
+   "latency": 16.0
+  },
+  {
+   "tag": "Core 3",
+   "run": 1,
+   "passed": 7,
+   "total": 7,
+   "checks": [
+    {
+     "check": "called the peer tool",
+     "ok": true
+    },
+    {
+     "check": "names Docusign",
+     "ok": true
+    },
+    {
+     "check": "names Shopify",
+     "ok": true
+    },
+    {
+     "check": "states comparability caveat",
+     "ok": true
+    },
+    {
+     "check": "gives an insight",
+     "ok": true
+    },
+    {
+     "check": "no uncited pages",
+     "ok": true
+    },
+    {
+     "check": "no leaked ids",
+     "ok": true
+    }
+   ],
+   "answer": "**Verdict:** A direct performance ranking is **not valid** because of major differences in industry profile, reporting boundaries, and reporting periods [1].\n\n### 1. Boundary & Comparability Caveats\nBefore drawing conclusions, note these critical differences [1]:\n* **Peer profile vs. Company:** Both available peers (Docusign and Shopify) are software/e-commerce companies [1]. Your Scope 1 profile includes industrial fuel combustion (e.g., coal, process activities), making this a cross-sector comparison rather than a like-for-like operational benchmark [1]. Ratio indicators require business context to interpret correctly [2].\n* **Timeframes:** Peer numbers reflect full annual cycles (Docusign FY25: 1 Feb 2024 \u2013 31 Jan 2025; Shopify CY2024) [1]. Your Scope 1 and Scope 2 figures cover only a 3-month quarter (2024-01-15 to 2024-03-15) [1]. Annualising your data assumes flat seasonality [1].\n* **Scope 2 methodology:** Docusign reports dual-method Scope 2 (3.1 tCO2e market-based, 8,545 tCO2e location-based) [1]. Your Scope 2 calculation method is unspecified [1]. \n* **Shopify boundaries:** Shopify reports operational emissions only (Scope 1 from building gas, Scope 2 from building electricity, and Scope 3.6/3.7) [1].\n\n### 2. Emissions Comparison\n* **Company (3-month reported)**: Scope 1 = 1,692.47 tCO2e; Scope 2 = 2,505.04 tCO2e [1]. *(Rough annualised estimate if flat: Scope 1 = 6,769.9 tCO2e; Scope 2 = 10,020.2 tCO2e [1]).*\n* **Docusign (FY25)**: Scope 1 = 449 tCO2e [1]; Scope 2 = 3.1 tCO2e (market-based) / 8,545 tCO2e (location-based) [1].\n* **Shopify (CY2024)**: Scope 1 = 360 tCO2e; Scope 2 = 319 tCO2e [1].\n\n### 3. Key Insights\n* **Decarbonisation of Scope 2:** Docusign reduced market-based Scope 2 to 3.1 tCO2e using 100% renewable electricity [1]. Implementing contractual instruments (e.g., green power tariffs or EACs) represents a major Scope 2 abatement opportunity.\n* **Normalization & Targets (Best practice):** Docusign reports an intensity metric of 45 tCO2e per $1M revenue [1]. GHG Protocol notes ratio indicators facilitate comparability between different operational scales [2] and recommends benchmarking with similar organizations when evaluating reduction opportunities [3].",
+   "tools": [
+    "compare_with_peers",
+    "search_ghg_protocol"
+   ],
+   "tokens_in": 31452,
+   "tokens_out": 740,
+   "cost_usd": 0.01129,
+   "latency": 11.3
+  },
+  {
+   "tag": "Core 3",
+   "run": 2,
+   "passed": 7,
+   "total": 7,
+   "checks": [
+    {
+     "check": "called the peer tool",
+     "ok": true
+    },
+    {
+     "check": "names Docusign",
+     "ok": true
+    },
+    {
+     "check": "names Shopify",
+     "ok": true
+    },
+    {
+     "check": "states comparability caveat",
+     "ok": true
+    },
+    {
+     "check": "gives an insight",
+     "ok": true
+    },
+    {
+     "check": "no uncited pages",
+     "ok": true
+    },
+    {
+     "check": "no leaked ids",
+     "ok": true
+    }
+   ],
+   "answer": "### Verdict\nDirect peer ranking is **not valid** due to fundamental differences in reporting periods, operational boundaries, and business sectors [1]. \n\n---\n\n### Protocol Requirements & Best Practice\n- **Protocol requirement**: Companies shall separately account for and report Scope 1 and Scope 2 emissions at a minimum [2]. \n- **Best practice**: When comparing performance across companies, an economic or physical intensity ratio should be used to normalize emissions data, as absolute emissions comparisons across different operational scopes or business activities do not reflect like-for-like performance [3][4]. In addition, uncertainty estimates and data cannot be interpreted to compare the quality of emission estimates between different companies [5].\n\n---\n\n### Peer Data Comparison\n\n| Metric | Your Company (3 Months) [1] | Your Company (Annualised flat) [1] | Docusign (FY25) [1] | Shopify (CY2024) [1] |\n| :--- | :--- | :--- | :--- | :--- |\n| **Scope 1 (tCO2e)** | 1,692.47 | 6,769.9 | 449 | 360 |\n| **Scope 2 (tCO2e)** | 2,505.04 | 10,020.2 | 3.1 (market) / 8,545 (loc.) | 319 |\n\n*(Caveat: Annualised figures assume flat seasonality and are a rough guide only [1]. Peer values are from peer reports provided in the dataset [1]. Note that the 2004 Corporate Standard does not contain the 2015 Scope 2 dual-reporting guidance).*\n\n---\n\n### Key Insights\n1. **Structural & Sector Differences**: Your Scope 1 emissions (1,692.47 tCO2e across 3 months [1]) reflect direct industrial processes, whereas peer Scope 1 emissions are limited to commercial office heating/gas combustion [1].\n2. **Decarbonisation Potential**: Docusign achieves 3.1 tCO2e in market-based Scope 2 via 100% renewable electricity coverage (versus 8,545 tCO2e location-based) [1], indicating significant potential for emissions reduction through green power procurement [6][7].",
+   "tools": [
+    "compare_with_peers",
+    "citation_guard",
+    "search_ghg_protocol"
+   ],
+   "tokens_in": 45681,
+   "tokens_out": 1159,
+   "cost_usd": 0.0166,
+   "latency": 19.5
+  },
+  {
+   "tag": "Bonus 1",
+   "run": 1,
+   "passed": 5,
+   "total": 5,
+   "checks": [
+    {
+     "check": "names Category 3",
+     "ok": true
+    },
+    {
+     "check": "gives its size",
+     "ok": true
+    },
+    {
+     "check": "lists activities",
+     "ok": true
+    },
+    {
+     "check": "no uncited pages",
+     "ok": true
+    },
+    {
+     "check": "no leaked ids",
+     "ok": true
+    }
+   ],
+   "answer": "The highest emitting Scope 3 category in your inventory is **Category 3** (31,794.33 tCO2e, 8.49% of Scope 3) [1]. \n\n*Important caveat*: There is a severe data-quality issue where activities and categories do not line up, and supplier names do not correspond logically to what they supply [1][2]. Consequently, this grouping cannot be considered reliable.\n\nAccording to the data records, the top activities listed under Category 3 are [2]:\n1. **Product Use Phase**: 4,982.78 tCO2e (15.67%)\n2. **Business Travel - Air**: 4,874.98 tCO2e (15.33%)\n3. **Raw Materials - Steel**: 4,254.58 tCO2e (13.38%)\n4. **Office Supplies**: 3,963.49 tCO2e (12.47%)\n5. **Manufacturing Equipment**: 3,832.02 tCO2e (12.05%)\n6. **IT Hardware**: 3,116.38 tCO2e (9.80%)\n7. **Packaging Materials**: 1,956.02 tCO2e (6.15%)\n8. **Employee Commuting**: 1,943.04 tCO2e (6.11%)\n9. **Inbound Logistics - Truck**: 1,607.31 tCO2e (5.06%)\n10. **Raw Materials - Aluminum**: 1,263.73 tCO2e (3.97%)\n\n*(Note: Under standard GHG accounting, activities like Business Travel, Employee Commuting, and Product Use Phase belong to other Scope 3 categories, reflecting the mapping mismatch noted above).*",
+   "tools": [
+    "scope3_top",
+    "scope3_category_detail"
+   ],
+   "tokens_in": 5399,
+   "tokens_out": 477,
+   "cost_usd": 0.00281,
+   "latency": 8.1
+  },
+  {
+   "tag": "Bonus 1",
+   "run": 2,
+   "passed": 5,
+   "total": 5,
+   "checks": [
+    {
+     "check": "names Category 3",
+     "ok": true
+    },
+    {
+     "check": "gives its size",
+     "ok": true
+    },
+    {
+     "check": "lists activities",
+     "ok": true
+    },
+    {
+     "check": "no uncited pages",
+     "ok": true
+    },
+    {
+     "check": "no leaked ids",
+     "ok": true
+    }
+   ],
+   "answer": "Based on the dataset, the highest emitting Scope 3 category is **Category 3** at **31,794.33 tonnes CO2e** [1] (8.49% of reported Scope 3 emissions [1]). \n\nThe activities contributing to Category 3 are [2]:\n- **Product Use Phase**: 4,982.78 t CO2e (15.67%) [2]\n- **Business Travel - Air**: 4,874.98 t CO2e (15.33%) [2]\n- **Raw Materials - Steel**: 4,254.58 t CO2e (13.38%) [2]\n- **Office Supplies**: 3,963.49 t CO2e (12.47%) [2]\n- **Manufacturing Equipment**: 3,832.02 t CO2e (12.05%) [2]\n\n*(Note: Additional activities account for the remaining 30.1% / 9,886.48 t CO2e [2]).*\n\n### Data Quality & Classification Caveat\nThis grouping should not be treated as reliable:\n- **Misaligned Categories and Activities**: Activities and categories do not line up in the dataset. For example, business travel, raw materials, and product use are scattered across multiple categories, whereas the GHG Protocol Corporate Standard lists them as distinct Scope 3 activity types (e.g., transport-related activities, extraction of purchased materials, and product use) [p.27, 31].\n- **Standard Context**: The 15 numbered Scope 3 categories were established in the separate Scope 3 Standard (2011), where Category 3 specifically designates *Fuel- and Energy-Related Activities Not Included in Scope 1 or Scope 2*; this guidance is not contained in the 2004 Corporate Standard [3].",
+   "tools": [
+    "scope3_top",
+    "quality_report",
+    "scope3_category_detail",
+    "search_ghg_protocol"
+   ],
+   "tokens_in": 21943,
+   "tokens_out": 519,
+   "cost_usd": 0.00788,
+   "latency": 12.8
+  },
+  {
+   "tag": "Bonus 2",
+   "run": 1,
+   "passed": 6,
+   "total": 6,
+   "checks": [
+    {
+     "check": "names the top supplier",
+     "ok": true
+    },
+    {
+     "check": "notes the even spread",
+     "ok": true
+    },
+    {
+     "check": "uses data quality",
+     "ok": true
+    },
+    {
+     "check": "called supplier tool",
+     "ok": true
+    },
+    {
+     "check": "no uncited pages",
+     "ok": true
+    },
+    {
+     "check": "no leaked ids",
+     "ok": true
+    }
+   ],
+   "answer": "**Best practice:** Ranking suppliers solely by emissions does not provide an effective prioritisation because Scope 3 emissions are spread almost evenly across suppliers (the top vs. bottom spread is only 20.8% across 8 suppliers [1]). Furthermore, data caveats indicate that every supplier supplies nearly every activity, supplier names do not match activity lines, and only a minority of entries use primary data [1]. \n\nThe top 5 suppliers by nominal emissions are:\n1. **OfficeMax**: 50,966.25 tCO2e (13.61% share, 18.0% primary data) [1]\n2. **Corporate Travel**: 50,296.34 tCO2e (13.43% share, 19.7% primary data) [1]\n3. **WasteManagement Co**: 49,390.91 tCO2e (13.19% share, 19.3% primary data) [1]\n4. **MetalSupply Co**: 48,603.02 tCO2e (12.98% share, 17.6% primary data) [1]\n5. **SteelCorp Inc**: 47,246.62 tCO2e (12.62% share, 17.2% primary data) [1]\n\n**Best practice recommendation:** Rather than engaging based on nominal spend/emissions rank alone, prioritise engagement where you can:\n- **Improve data quality:** Target these top partners to replace default estimates with supplier-specific primary activity and emissions data [2][3].\n- **Focus on high-reduction activities:** Target partners representing major emission-intensive materials or outsourced activities where you have operational leverage or substitution opportunities [2][4].\n\n*(Note: The 2004 Corporate Standard provides general value-chain guidance [p.32-33]; detailed supplier-engagement accounting rules from the 2011 Scope 3 Standard cannot be verified from the provided documents.)*",
+   "tools": [
+    "supplier_priorities",
+    "search_ghg_protocol"
+   ],
+   "tokens_in": 14788,
+   "tokens_out": 505,
+   "cost_usd": 0.0057,
+   "latency": 9.5
+  },
+  {
+   "tag": "Bonus 2",
+   "run": 2,
+   "passed": 6,
+   "total": 6,
+   "checks": [
+    {
+     "check": "names the top supplier",
+     "ok": true
+    },
+    {
+     "check": "notes the even spread",
+     "ok": true
+    },
+    {
+     "check": "uses data quality",
+     "ok": true
+    },
+    {
+     "check": "called supplier tool",
+     "ok": true
+    },
+    {
+     "check": "no uncited pages",
+     "ok": true
+    },
+    {
+     "check": "no leaked ids",
+     "ok": true
+    }
+   ],
+   "answer": "Based on reported Scope 3 emissions [1], the top suppliers by emissions volume are:\n\n1. **OfficeMax**: 50,966.25 t CO2e (13.61% share; 18.0% primary data) [1]\n2. **Corporate Travel**: 50,296.34 t CO2e (13.43% share; 19.7% primary data) [1]\n3. **WasteManagement Co**: 49,390.91 t CO2e (13.19% share; 19.3% primary data) [1]\n4. **MetalSupply Co**: 48,603.02 t CO2e (12.98% share; 17.6% primary data) [1]\n5. **SteelCorp Inc**: 47,246.62 t CO2e (12.62% share; 17.2% primary data) [1]\n\n### Data Caveats & Prioritisation Advice\n- **Even distribution**: Emissions are spread almost evenly across all 8 suppliers (top-to-bottom spread is only 20.8%) [1]. Ranking by absolute emissions alone provides weak differentiation.\n- **Supplier-activity misalignment**: Across the dataset, every supplier supplies nearly every activity (e.g., OfficeMax's top activity is recorded as \"Business Travel - Air\", and Corporate Travel's is \"Raw Materials - Steel\") [1]. These category and activity groupings are not reliable as recorded.\n- **Low primary data**: All suppliers rely predominantly on secondary data (primary data shares range from 17.2% to 27.0%) [1]. \n\n**Recommendation (Best practice)**: Before initiating reduction targets, audit and clean supplier activity mappings, and engage the largest vendors\u2014starting with OfficeMax and Corporate Travel\u2014to replace secondary estimates with verified primary activity data.",
+   "tools": [
+    "supplier_priorities"
+   ],
+   "tokens_in": 3248,
+   "tokens_out": 454,
+   "cost_usd": 0.00211,
+   "latency": 6.7
+  },
+  {
+   "tag": "Bonus 3",
+   "run": 1,
+   "passed": 6,
+   "total": 6,
+   "checks": [
+    {
+     "check": "states the total",
+     "ok": true
+    },
+    {
+     "check": "Scope 3 dominates",
+     "ok": true
+    },
+    {
+     "check": "flags period mismatch",
+     "ok": true
+    },
+    {
+     "check": "called totals",
+     "ok": true
+    },
+    {
+     "check": "no uncited pages",
+     "ok": true
+    },
+    {
+     "check": "no leaked ids",
+     "ok": true
+    }
+   ],
+   "answer": "### Total Emissions Summary\n\n* **Scope 1:** 1,692.47 tCO2e [1] (0.45% share [1])\n* **Scope 2:** 2,505.04 tCO2e [1] (0.66% share [1])\n* **Scope 3:** 374,485.51 tCO2e [1] (98.89% share [1])\n* **Grand Total:** 378,683.02 tCO2e [1]\n\n*Critical Caveat:* Scopes cover different reporting periods [1]. Scope 1 and Scope 2 cover only 3 months (Jan\u2013Mar 2024) [1], whereas Scope 3 covers a full 12 months (Jan\u2013Dec 2024) [1]. As a result, relative shares are not like-for-like [1].\n\n---\n\n### Key Insights\n\n1. **Scope 3 Dominance:** Value chain emissions account for 98.89% of reported footprint [1], led by Category 3 (31,794.33 tCO2e [2]) and Category 12 (31,169.22 tCO2e [2]). *Caveat:* Scope 3 categories and activities do not line up consistently, and only a minority of rows rely on primary data [2].\n2. **Scope 2 Drivers:** Purchased steam accounts for 84.49% (2,116.40 tCO2e) of Scope 2, with electricity at 15.51% (388.64 tCO2e) [3]. *Caveat:* The steam emission factor lacks a stated source, units are mixed/unspecified, and dual reporting (location vs. market) cannot be evaluated [3].\n3. **Scope 1 Drivers:** Stationary combustion generates 53.33% (902.57 tCO2e), followed by process emissions at 41.48% (702.00 tCO2e) [4]. *Caveat:* Individual greenhouse gases are not reported separately [4].",
+   "tools": [
+    "totals",
+    "scope1_breakdown",
+    "scope2_breakdown",
+    "scope3_top"
+   ],
+   "tokens_in": 4025,
+   "tokens_out": 576,
+   "cost_usd": 0.00265,
+   "latency": 7.9
+  },
+  {
+   "tag": "Bonus 3",
+   "run": 2,
+   "passed": 6,
+   "total": 6,
+   "checks": [
+    {
+     "check": "states the total",
+     "ok": true
+    },
+    {
+     "check": "Scope 3 dominates",
+     "ok": true
+    },
+    {
+     "check": "flags period mismatch",
+     "ok": true
+    },
+    {
+     "check": "called totals",
+     "ok": true
+    },
+    {
+     "check": "no uncited pages",
+     "ok": true
+    },
+    {
+     "check": "no leaked ids",
+     "ok": true
+    }
+   ],
+   "answer": "### Total Emissions by Scope Summary\n\n*Critical Data Caveat*: Scopes cover different reporting periods. Scope 1 and Scope 2 cover only 3 months (January\u2013March 2024), whereas Scope 3 covers a full 12 months (January\u2013December 2024) [1]. As a result, percentage shares across scopes are not directly comparable.\n\n- **Scope 1**: 1,692.47 tCO2e [1] (0.45% of total [1]; covers 3 months [1])\n- **Scope 2**: 2,505.04 tCO2e [1] (0.66% of total [1]; covers 3 months [1])\n- **Scope 3**: 374,485.51 tCO2e [1] (98.89% of total [1]; covers 12 months [1])\n- **Grand Total**: 378,683.02 tCO2e [1]\n\n---\n\n### Key Insights\n\n1. **Value Chain Dominance (Scope 3)**: Scope 3 comprises 98.89% of reported emissions (374,485.51 tCO2e) [1]. Top categories include Category 3 (31,794.33 tCO2e, 8.49%) [2] and Category 12 (31,169.22 tCO2e, 8.32%) [2]. *Caveat*: Scope 3 categories and activity descriptions do not align properly in the underlying records, and only a minority of rows rely on primary data.\n2. **Scope 2 Steam Concentration**: Scope 2 is dominated by Steam at 2,116.40 tCO2e (84.49%) [3], with Electricity contributing 388.64 tCO2e (15.51%) [3]. *Caveat*: The emission factor for steam lacks a documented source, units are unstated, and location vs. market-based methods cannot be determined.\n3. **Scope 1 Drivers**: Stationary Combustion represents 53.33% (902.57 tCO2e) [4], followed by Process Emissions at 41.48% (702.00 tCO2e) [4]. *Caveat*: Individual greenhouse gases are not reported separately.",
+   "tools": [
+    "totals",
+    "scope1_breakdown",
+    "scope2_breakdown",
+    "scope3_top"
+   ],
+   "tokens_in": 4025,
+   "tokens_out": 629,
+   "cost_usd": 0.00278,
+   "latency": 10.3
+  }
+ ]
+}

@@ -41,6 +41,25 @@ Every number is cited as a data source and every rule as a PDF page. The UI turn
   - This proves facts and grounding are present. It does not grade prose quality.
 - **Ledger.** Every experiment, with its caveats, is in `EXPERIMENTS.md`.
 
+## Model comparison (E13, E17)
+The same agent, prompt and rubric (`eval_agent.py --model ...`) were run on each Gemini model available to the key. The app's compare view shows the same thing for any single question.
+
+| Model | Checks passed | Mean latency | Input tokens / answer | List-price cost / answer |
+|---|---|---|---|---|
+| gemini-4-hydrogen (default) | 114/114 (3 runs) | 10.4 s | 12.6k | $0.005 |
+| gemini-3.8-flash | 76/76 (2 runs) | 13.7 s | 22.5k | $0.009 |
+| gemini-2.5-flash | 75/76 (2 runs) | 5.5 s | 13.2k | $0.006 |
+| gemini-4-carbon | 51/52 (partial: stopped during Bonus 2, API stalled) | not saved | | |
+
+- All models get the numbers right, because the numbers come from tools, not the model. Differences show up in reasoning-heavy questions: the only misses were on Core 1 (business travel), where a model sometimes dropped one side of the Scope 1 / Scope 3 answer.
+- The rubric checks facts, not answer quality, so it understates the gap. Reading the answers side by side (E13, `results/COMPARISON.md`), `gemini-4-hydrogen` was clearly better than `gemini-2.5-flash`, which is why it became the default:
+  - **Core 1:** hydrogen gives both sides (Scope 3, or Scope 1 if company-owned) plus cited calculation steps and the Protocol's mobile-combustion tool; flash gave a vaguer method.
+  - **Core 2:** hydrogen opens with one consistent verdict; flash's verdict contradicted its own points.
+  - **Bonus 1 and 2:** hydrogen puts the data caveats next to each claim and ends with a recommendation (fix the supplier mapping, collect primary data).
+  - Prompt changes alone had not fixed these; changing the model did.
+- `gemini-4-hydrogen` was kept as the default: no misses, no variance, and the lowest tokens per answer. `gemini-2.5-flash` is about twice as fast and would suit a latency-sensitive deployment.
+- Caveat: 2 runs per model for the challengers; one miss in 76 checks is within noise.
+
 ## RAG experiments (E01–E08)
 The retrieval setup was chosen by measurement, not by default. Full details and caveats are in `EXPERIMENTS.md`.
 - **Extraction (E01).** `pdftotext -layout` interleaved the PDF's two columns; plain mode kept key sentences intact on the pages checked, so plain text is used.

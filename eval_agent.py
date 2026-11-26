@@ -4,7 +4,7 @@ Each question has a rubric of deterministic checks: facts that must appear, clai
 called, and pages that must be cited. Ground truth comes from the data tools and from Protocol pages checked by hand,
 never from an LLM. Each question is run N times to measure run-to-run variance.
 
-Usage: python3 eval_agent.py [--runs 3] [--only "Core 1"]
+Usage: python3 eval_agent.py [--runs 3] [--model gemini-2.5-flash] [--only "Core 1"]
 Output: results/eval/<timestamp>.json and a summary table on stdout.
 """
 import json, re, sys, time
@@ -113,6 +113,7 @@ def main():
     if "--rescore" in sys.argv:
         return summary(rescore(sys.argv[sys.argv.index("--rescore") + 1]))
     runs = int(sys.argv[sys.argv.index("--runs") + 1]) if "--runs" in sys.argv else 3
+    model = sys.argv[sys.argv.index("--model") + 1] if "--model" in sys.argv else agent.MODEL
     only = sys.argv[sys.argv.index("--only") + 1] if "--only" in sys.argv else None
     OUT.mkdir(parents=True, exist_ok=True)
     rows = []
@@ -120,7 +121,7 @@ def main():
         if only and tag != only: continue
         for i in range(runs):
             ag = Agent()   # fresh agent: no shared history between runs
-            t = time.time(); r = ag.ask(q)
+            t = time.time(); r = ag.ask(q, model=model)
             sc = score(r, R[tag])
             rows.append(dict(tag=tag, run=i + 1, passed=sum(c["ok"] for c in sc), total=len(sc), checks=sc,
                              answer=r["answer"], tools=[x["tool"] for x in r["trace"]], tokens_in=r["tokens_in"],
@@ -128,8 +129,8 @@ def main():
             print(f"{tag} run {i+1}: {rows[-1]['passed']}/{rows[-1]['total']}  fails: "
                   f"{[c['check'] for c in sc if not c['ok']]}", flush=True)
             time.sleep(5)
-    f = OUT / f"{time.strftime('%Y%m%d-%H%M%S')}_{agent.MODEL}_{agent.PROMPT_VERSION}.json"
-    f.write_text(json.dumps(dict(model=agent.MODEL, prompt=agent.PROMPT_VERSION, runs=runs, rows=rows), indent=1, default=str))
+    f = OUT / f"{time.strftime('%Y%m%d-%H%M%S')}_{model}_{agent.PROMPT_VERSION}.json"
+    f.write_text(json.dumps(dict(model=model, prompt=agent.PROMPT_VERSION, runs=runs, rows=rows), indent=1, default=str))
     summary(rows); print(f"Saved {f.relative_to(ROOT)}")
 
 
