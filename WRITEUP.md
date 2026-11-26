@@ -12,7 +12,7 @@ Every number is cited as a data source and every rule as a PDF page. The UI turn
 - **Data.** Each company has its own folder in `projects/<company>/`. Uploads are schema-validated and hot-reloaded, using a cache keyed on file modification time. Each data tool result carries that project's open data-quality findings (`data_caveats`), so answers state the caveats inline.
 - **Knowledge.**
   - The Protocol PDF is extracted with plain `pdftotext`, which was chosen over `-layout` in E01.
-  - It is split into 300-word chunks and searched with hybrid BM25 + bge-small, merged with reciprocal rank fusion. The top 5 hits are returned with their neighbouring pages.
+  - It is split into 300-word chunks and searched with hybrid BM25 + bge-small, merged with reciprocal rank fusion. The top 5 hits are returned with their neighbouring pages. Page text is extracted once ahead of time and the chunk embeddings are cached on disk, so the index loads in about a second and is built once per app start, not per question.
   - Compound questions are split into one query each.
 - **Peers.** Facts are hand-curated from both peer PDFs. A build script asserts that each fact's quote appears on its cited page. Shopify's figures come from a chart, so RAG over that PDF would not be reliable.
 - **Guards.**
