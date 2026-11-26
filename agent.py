@@ -110,6 +110,19 @@ DECLS = [
 ]
 TOOLS = {**et.TOOLS, "compare_with_peers": peers.compare_with_peers}
 PRICE_IN, PRICE_OUT = 0.30, 2.50   # USD per 1M tokens, gemini-2.5-flash paid-tier list price (free tier costs 0)
+# Models offered in the app. (price in, price out per 1M tokens; thinking budget, None = model default).
+# Prices are list-price estimates; models without a published price reuse the flash price, as before.
+MODELS = {
+    "gemini-4-hydrogen": (0.30, 2.50, 0),
+    "gemini-4-carbon": (0.30, 2.50, 0),
+    "gemini-3.8-flash": (0.30, 2.50, 0),
+    "gemini-2.5-flash": (0.30, 2.50, 0),
+}
+
+
+def _thinking(model):
+    b = MODELS.get(model, (0, 0, 0))[2]
+    return None if b is None else types.ThinkingConfig(thinking_budget=b)
 
 
 OBLIGATION = re.compile(r"\b(shall|must|required|requires|requirement|mandatory)\b", re.I)
@@ -157,7 +170,7 @@ class Agent:
                                      for f in fs if f["status"] in ("gap", "verify", "unknown")]
         return {"source_id": sid, **res, **extra}, None
 
-    def _verify(self, text, sources):
+    def _verify(self, text, sources, model=MODEL):
         """Claim check: obligation claims ('shall', 'required') are checked against the page they cite."""
         claims = []
         for sent in re.split(r"(?<=[.!?])\s+|\n+", text):
@@ -167,25 +180,27 @@ class Agent:
         if not claims: return [], 0, 0
         body = "\n\n".join(f"Claim {i+1}: {c}\nCited page text:\n" + "\n".join(f"[{p}] {re.sub(chr(10)+'+', ' ', sources[p]['detail'])[:3500]}" for p in pg)
                             for i, (c, pg) in enumerate(claims))
-        r = self.client.models.generate_content(model=MODEL, contents=VERIFY.format(body=body), config=types.GenerateContentConfig(
-            temperature=0, response_mime_type="application/json", thinking_config=types.ThinkingConfig(thinking_budget=0)))
+        r = self.client.models.generate_content(model=model, contents=VERIFY.format(body=body), config=types.GenerateContentConfig(
+            temperature=0, response_mime_type="application/json", thinking_config=_thinking(model)))
         try: bad = [claims[i - 1][0] for i in json.loads(r.text)["unsupported"] if 1 <= i <= len(claims)]
         except Exception: bad = []
         u = r.usage_metadata
         return bad, u.prompt_token_count or 0, u.candidates_token_count or 0
 
-    def ask(self, question, history=None):
+    def ask(self, question, history=None, model=MODEL):
+        pin, pout, _ = MODELS.get(model, (PRICE_IN, PRICE_OUT, 0))
         contents = list(history or []) + [types.Content(role="user", parts=[types.Part(text=question)])]
         cfg = types.GenerateContentConfig(system_instruction=SYSTEM, temperature=0, max_output_tokens=3000,
                                           tools=[types.Tool(function_declarations=DECLS)],
                                           automatic_function_calling=types.AutomaticFunctionCallingConfig(disable=True),
-                                          thinking_config=types.ThinkingConfig(thinking_budget=0))
+                                          thinking_config=_thinking(model))
         trace, tin, tout, t0 = [], 0, 0, time.time(); retrieved, guarded, sources, revised, claim_check = set(), False, {}, False, None
         for step in range(MAX_STEPS):
             for a in range(5):
                 try:
-                    r = self.client.models.generate_content(model=MODEL, contents=contents, config=cfg); break
+                    r = self.client.models.generate_content(model=model, contents=contents, config=cfg); break
                 except Exception as e:
+                    if "NOT_FOUND" in str(e) or "INVALID_ARGUMENT" in str(e): raise   # not transient: fail fast
                     print("  retry:", str(e)[:80], flush=True); time.sleep(20 * (a + 1))
             else:
                 raise RuntimeError("LLM call failed")
@@ -202,7 +217,7 @@ class Agent:
                         "rule_query) to find the rule, then answer again citing only retrieved pages; drop any rule you cannot cite."))]))
                     trace.append(dict(tool="citation_guard", args={"uncited_pages": bad}, pages=None)); continue
                 if not bad or guarded:
-                    unsup, vi, vo = self._verify(r.text or "", sources); tin += vi; tout += vo
+                    unsup, vi, vo = self._verify(r.text or "", sources, model); tin += vi; tout += vo
                     claim_check = dict(unsupported=unsup, revised=revised)
                     if unsup and not revised:
                         revised = True
@@ -212,7 +227,7 @@ class Agent:
                             ". Rewrite the whole answer: remove or soften those claims (say 'recommended' when the page only recommends), keep the rest."))]))
                         trace.append(dict(tool="claim_check", args={"unsupported": unsup}, pages=None)); continue
                 return dict(uncited_pages=bad, claim_check=claim_check, answer=ans, answer_raw=r.text or "", sources=cited, trace=trace, tokens_in=tin, tokens_out=tout, steps=step + 1,
-                            latency=round(time.time() - t0, 1), cost_usd=round(tin * PRICE_IN / 1e6 + tout * PRICE_OUT / 1e6, 5),
+                            latency=round(time.time() - t0, 1), cost_usd=round(tin * pin / 1e6 + tout * pout / 1e6, 5), model=model,
                             history=contents + [r.candidates[0].content])
             contents.append(r.candidates[0].content)
             parts = []
@@ -224,7 +239,7 @@ class Agent:
                 parts.append(types.Part.from_function_response(name=c.name, response={"result": out}))
             contents.append(types.Content(role="user", parts=parts))
         return dict(answer="(stopped: too many tool steps)", trace=trace, tokens_in=tin, tokens_out=tout,
-                    steps=MAX_STEPS, sources=[], uncited_pages=[], latency=round(time.time() - t0, 1), cost_usd=0, history=contents)
+                    steps=MAX_STEPS, sources=[], uncited_pages=[], latency=round(time.time() - t0, 1), cost_usd=0, model=model, history=contents)
 
 
 DEMO = [

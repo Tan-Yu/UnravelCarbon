@@ -1,11 +1,12 @@
 """Streamlit chat UI. Run: streamlit run app.py
 One shared GHG Protocol knowledge base; one folder per company in projects/<name>/ (CSVs + saved chats)."""
 import io, json, re, time, uuid
+from concurrent.futures import ThreadPoolExecutor
 import pandas as pd
 import streamlit as st
 from report import build_report
 import emissions_tools as et
-from agent import Agent, MODEL, PROMPT_VERSION
+from agent import Agent, MODEL, MODELS, PROMPT_VERSION
 
 st.set_page_config(page_title="Emissions Analysis Agent", layout="wide")
 
@@ -105,6 +106,12 @@ with st.sidebar:
         if sc not in avail: st.markdown(f"**scope{sc}.csv**: missing")
     st.caption("Knowledge base (shared): GHG Protocol Corporate Standard 2004, 116 pages. Peer reports: not loaded.")
     st.divider()
+    st.subheader("Model")
+    S.model = st.selectbox("Answer with", list(MODELS), index=list(MODELS).index(S.get("model", MODEL)),
+                           help="Switching keeps the conversation; the next answer uses the new model.")
+    compare = st.toggle("Compare models side by side", help="Each question goes to every chosen model at once. "
+                        "Compare answers are single-turn (no history) so the models see the same input.")
+    cmp_models = st.multiselect("Models to compare", list(MODELS), default=list(MODELS)[:3], max_selections=4) if compare else []
     mode = st.radio("Retrieval returns", ["Page", "Page ±1"], index=1,
                     help="Page±1 added coverage in E06 (0.93 vs 0.88) at 1.8x the tokens.")
     ag.expand = 1 if mode == "Page ±1" else 0
@@ -135,28 +142,69 @@ if S.get("report") and S.report["project"] == S.project:
     st.download_button("Download report (HTML)", r_["page"], file_name=r_["name"], mime="text/html")
     st.iframe(r_["page"], height=900)   # all LLM text in the page is html-escaped by report.render
 
+def show_answer(m, key):
+    st.markdown(m["content"])
+    show_sources(m["sources"], key)
+    with st.expander("How I got this"):
+        for tr in m["trace"]:
+            st.code(f"{tr['tool']}({tr['args']})" + (f"  -> pages {tr['pages']}" if tr.get("pages") else ""))
+        st.caption(m["stats"])
+
+
+def stats_of(r):
+    return f"{r['steps']} steps, {r['tokens_in']:,} in / {r['tokens_out']:,} out tokens, {r['latency']}s, ~${r['cost_usd']}"
+
+
 for i, m in enumerate(S.msgs):
+    if m.get("compare"):
+        with st.chat_message("assistant"):
+            st.caption("Model comparison (same question, no history)")
+            rows = [dict(model=c["model"], seconds=c["latency"], tools=len([t for t in c["trace"] if t["tool"] not in ("citation_guard", "claim_check")]),
+                         sources=len(c["sources"]), tokens_in=c["tokens_in"], tokens_out=c["tokens_out"], cost_usd=c["cost_usd"],
+                         guard_fired=any(t["tool"] in ("citation_guard", "claim_check") for t in c["trace"])) for c in m["compare"]]
+            st.dataframe(pd.DataFrame(rows), hide_index=True, use_container_width=True)
+            for col, c in zip(st.columns(len(m["compare"])), m["compare"]):
+                with col:
+                    st.markdown(f"#### `{c['model']}`")
+                    if c.get("error"): st.error(c["error"]); continue
+                    with st.container(height=520): show_answer(c, f"{i}-{c['model']}")
+        continue
     with st.chat_message(m["role"]):
+        if m.get("model"): st.caption(m["model"])
+        if m.get("trace") is not None: show_answer(m, i); continue
         st.markdown(m["content"])
-        if m.get("trace") is not None:
-            show_sources(m["sources"], i)
-            with st.expander("How I got this"):
-                for tr in m["trace"]:
-                    st.code(f"{tr['tool']}({tr['args']})" + (f"  -> pages {tr['pages']}" if tr.get("pages") else ""))
-                st.caption(m["stats"])
 
 prompt = st.chat_input("Ask about your emissions data or the GHG Protocol") or clicked
 if prompt:
     if not avail:
         st.error("Upload data for this project first."); st.stop()
     with st.chat_message("user"): st.markdown(prompt)
+    if compare and cmp_models:
+        def run(m):
+            try: return ag.ask(prompt, model=m)
+            except Exception as e: return dict(model=m, error=str(e)[:300], answer="", trace=[], sources=[], tokens_in=0,
+                                               tokens_out=0, latency=0, cost_usd=0, steps=0)
+        with st.spinner(f"Asking {len(cmp_models)} models in parallel..."):
+            with ThreadPoolExecutor(len(cmp_models)) as ex: res = list(ex.map(run, cmp_models))
+        S.msgs.append(dict(role="user", content=prompt))
+        S.msgs.append(dict(role="assistant", content="", compare=[r | dict(content=r["answer"], stats=stats_of(r)) for r in res]))
+        t = S.tot; t["q"] += 1
+        for r in res: t["tin"] += r["tokens_in"]; t["tout"] += r["tokens_out"]; t["cost"] += r["cost_usd"]
+        log = et.PROJECTS / S.project / "chats"; log.mkdir(parents=True, exist_ok=True)
+        with (log / f"{S.sid}.jsonl").open("a") as f:
+            for r in res:
+                f.write(json.dumps(dict(ts=time.strftime("%Y-%m-%dT%H:%M:%S"), session=S.sid, project=S.project, turn=t["q"], compare=True,
+                                        question=prompt, answer=r["answer"], error=r.get("error"), trace=r["trace"],
+                                        tokens_in=r["tokens_in"], tokens_out=r["tokens_out"], latency=r["latency"], cost_usd=r["cost_usd"],
+                                        model=r["model"], prompt_version=PROMPT_VERSION), ensure_ascii=False, default=str) + "\n")
+        st.rerun()
     with st.chat_message("assistant"):
         with st.spinner("Thinking..."):
-            r = ag.ask(prompt, history=S.hist)
+            r = ag.ask(prompt, history=S.hist, model=S.model)
     S.hist = r["history"]
-    stats = f"{r['steps']} steps, {r['tokens_in']:,} in / {r['tokens_out']:,} out tokens, {r['latency']}s, ~${r['cost_usd']}"
+    stats = stats_of(r)
     S.msgs.append(dict(role="user", content=prompt))
-    S.msgs.append(dict(role="assistant", content=r["answer"], trace=r["trace"], stats=stats, sources=r["sources"]))
+    S.msgs.append(dict(role="assistant", content=r["answer"], trace=r["trace"], stats=stats, sources=r["sources"], model=S.model))
     t = S.tot; t["q"] += 1; t["tin"] += r["tokens_in"]; t["tout"] += r["tokens_out"]
     t["tools"] += sum(x["tool"] not in ("citation_guard", "claim_check") for x in r["trace"]); t["cost"] += r["cost_usd"]
     log = et.PROJECTS / S.project / "chats"; log.mkdir(parents=True, exist_ok=True)
@@ -166,6 +214,6 @@ if prompt:
                                 sources=[{k: s[k] for k in ("n", "id", "kind", "label")} for s in r["sources"]],
                                 uncited_pages=r.get("uncited_pages"), trace=r["trace"], steps=r["steps"],
                                 tokens_in=r["tokens_in"], tokens_out=r["tokens_out"], latency=r["latency"], cost_usd=r["cost_usd"],
-                                model=MODEL, prompt_version=PROMPT_VERSION, retrieval="page+-1" if ag.expand else "page"),
+                                model=S.model, prompt_version=PROMPT_VERSION, retrieval="page+-1" if ag.expand else "page"),
                            ensure_ascii=False, default=str) + "\n")
     st.rerun()
