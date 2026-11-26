@@ -49,7 +49,6 @@ The same agent, prompt and rubric (`eval_agent.py --model ...`) were run on each
 | gemini-4-hydrogen (default) | 114/114 (3 runs) | 10.4 s | 12.6k | $0.005 |
 | gemini-3.8-flash | 76/76 (2 runs) | 13.7 s | 22.5k | $0.009 |
 | gemini-2.5-flash | 75/76 (2 runs) | 5.5 s | 13.2k | $0.006 |
-| gemini-4-carbon | 51/52 (partial: stopped during Bonus 2, API stalled) | not saved | | |
 
 - All models get the numbers right, because the numbers come from tools, not the model. Differences show up in reasoning-heavy questions: the only misses were on Core 1 (business travel), where a model sometimes dropped one side of the Scope 1 / Scope 3 answer.
 - The rubric checks facts, not answer quality, so it understates the gap. Reading the answers side by side (E13, `results/COMPARISON.md`), `gemini-4-hydrogen` was clearly better than `gemini-2.5-flash`, which is why it became the default:
